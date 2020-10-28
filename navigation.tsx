@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -19,8 +19,11 @@ export const Navigation = () => {
             backgroundColor: theme.foreground,
         },
     });
+    const barStyle =
+        theme.text === "#ffffff" ? "light-content" : "dark-content";
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar barStyle={barStyle} />
             <NavigationContainer>
                 <Tab.Navigator
                     screenOptions={({ route }) => ({

@@ -1,12 +1,5 @@
 import React, { useContext } from "react";
-import {
-    SafeAreaView,
-    Text,
-    FlatList,
-    View,
-    Image,
-    StyleSheet,
-} from "react-native";
+import { Text, FlatList, View, Image, StyleSheet } from "react-native";
 
 import { useProduct } from "../../hooks/useProduct";
 import { Search } from "../../Components/Search";
@@ -17,7 +10,21 @@ export const Home = () => {
     const [products] = useProduct();
     const { theme } = useContext(ThemeContext);
     const styles = StyleSheet.create({
-        container: {
+        item__name: {
+            fontSize: 26,
+            fontWeight: "700",
+            color: theme.text,
+            marginVertical: 10,
+        },
+        item__price: {
+            fontSize: 16,
+            fontWeight: "500",
+            color: theme.text,
+            fontStyle: "italic",
+            marginVertical: 10,
+        },
+        container: { backgroundColor: theme.background, marginBottom: 50 },
+        container__item: {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
@@ -31,7 +38,7 @@ export const Home = () => {
             shadowOpacity: 0.25,
             shadowRadius: 3.84,
             elevation: 5,
-            backgroundColor: theme.background,
+            backgroundColor: theme.foreground,
             borderRadius: 10,
         },
         img: {
@@ -43,26 +50,25 @@ export const Home = () => {
         },
     });
     const renderItem = ({ item }: { item: Product }) => (
-        <View style={styles.container}>
+        <View style={styles.container__item}>
             <Image
                 style={styles.img}
                 source={{
                     uri: `${item.img}`,
                 }}
             />
-            <Text>{item.name}</Text>
-            <Text>{`${item.price} EUR`}</Text>
+            <Text style={styles.item__name}>{item.name}</Text>
+            <Text style={styles.item__price}>{`${item.price} EUR`}</Text>
         </View>
     );
     return (
-        <SafeAreaView>
+        <View style={styles.container}>
             <Search />
             <FlatList
                 data={products}
                 renderItem={renderItem}
                 keyExtractor={(item) => item._id}
             />
-            <Text>Test</Text>
-        </SafeAreaView>
+        </View>
     );
 };
