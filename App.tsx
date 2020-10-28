@@ -7,20 +7,25 @@
  *
  * @format
  */
-
+import "react-native-gesture-handler";
 import React from "react";
-import {SafeAreaView, StyleSheet, StatusBar} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import {Search} from "./src/Components/Search";
+import { Search } from "./src/Components/Search";
+import { Home } from "./src/pages/Home";
+import { Product } from "./src/pages/Product";
+import { RootStackParamList } from "./src/typings";
+const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
     return (
-        <>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView>
-                <Search />
-            </SafeAreaView>
-        </>
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Product" component={Product} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
 
