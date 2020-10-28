@@ -20,7 +20,7 @@ export const themes = {
 };
 
 const innitialState = {
-    theme: themes.light,
+    theme: themes.dark,
     switchTheme: () => {},
 };
 export const ThemeContext = React.createContext(innitialState);

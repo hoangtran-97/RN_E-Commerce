@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
     SafeAreaView,
-    ScrollView,
     Text,
     FlatList,
     View,
@@ -11,7 +10,7 @@ import {
 
 import { useProduct } from "../../hooks/useProduct";
 import { Search } from "../../Components/Search";
-import { ProductItem } from "../../Components/ProductItem";
+import { Product } from "../../typings";
 import { ThemeContext } from "../../context";
 
 export const Home = () => {
@@ -43,23 +42,24 @@ export const Home = () => {
             borderTopRightRadius: 10,
         },
     });
+    const renderItem = ({ item }: { item: Product }) => (
+        <View style={styles.container}>
+            <Image
+                style={styles.img}
+                source={{
+                    uri: `${item.img}`,
+                }}
+            />
+            <Text>{item.name}</Text>
+            <Text>{`${item.price} EUR`}</Text>
+        </View>
+    );
     return (
         <SafeAreaView>
             <Search />
             <FlatList
                 data={products}
-                renderItem={({ item }) => (
-                    <View style={styles.container}>
-                        <Image
-                            style={styles.img}
-                            source={{
-                                uri: `${item.img}`,
-                            }}
-                        />
-                        <Text>{item.name}</Text>
-                        <Text>{`${item.price} EUR`}</Text>
-                    </View>
-                )}
+                renderItem={renderItem}
                 keyExtractor={(item) => item._id}
             />
             <Text>Test</Text>
