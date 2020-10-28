@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, SafeAreaView } from "react-native";
+import { ColorSwitcher } from "../../Components/ColorSwitcher";
 
 export const Setting = () => {
     return (
-        <SafeAreaView>
-            <Text>Setting</Text>
-        </SafeAreaView>
+        <>
+            <ColorSwitcher />
+        </>
     );
 };
