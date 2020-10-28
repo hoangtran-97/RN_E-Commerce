@@ -1,16 +1,43 @@
-// import { StackNavigationProp } from "@react-navigation/stack";
+import { ProductState, Product } from "./product";
+import { UiState } from "./ui";
+import { User, UserState } from "./user";
 
-// export type RootStackParamList = {
-//     Home: undefined;
-//     Product: undefined;
-// };
+export * from "./user";
+export * from "./product";
+export * from "./ui";
 
-// type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
+// Action types
 
-// export type HomeProps = {
-//     navigation: HomeScreenNavigationProp;
-// };
+export type AdminAddProductProps = { token: string };
 
+export type AdminProductItemProps = {
+    product: Product;
+};
+
+export type AdminUserItemProps = {
+    user: User;
+};
+
+export type HomeProps = {
+    query: string;
+};
+export type HeaderProps = {
+    query: string;
+    setQuery: Function;
+};
+export type CartItemProps = {
+    item: Product;
+};
 export type ContextChildrenProps = {
     children: React.ReactNode;
+};
+
+export type RouteParam = {
+    id: string;
+};
+
+export type AppState = {
+    product: ProductState;
+    ui: UiState;
+    user: UserState;
 };
