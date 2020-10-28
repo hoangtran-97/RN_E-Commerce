@@ -5,7 +5,7 @@ export const REMOVE_PRODUCT_LIST = "REMOVE_PRODUCT_LIST";
 export const RECEIVE_PRODUCTS = "RECEIVE_PRODUCTS";
 
 export type Product = {
-    _id?: string;
+    _id: string;
     name: string;
     description: string;
     categories: string[];
