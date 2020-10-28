@@ -1,12 +1,16 @@
-import { StackNavigationProp } from "@react-navigation/stack";
+// import { StackNavigationProp } from "@react-navigation/stack";
 
-export type RootStackParamList = {
-    Home: undefined;
-    Product: undefined;
-};
+// export type RootStackParamList = {
+//     Home: undefined;
+//     Product: undefined;
+// };
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
+// type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
-export type HomeProps = {
-    navigation: HomeScreenNavigationProp;
+// export type HomeProps = {
+//     navigation: HomeScreenNavigationProp;
+// };
+
+export type ContextChildrenProps = {
+    children: React.ReactNode;
 };
