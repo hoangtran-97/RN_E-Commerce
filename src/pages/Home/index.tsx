@@ -1,16 +1,16 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, SafeAreaView } from "react-native";
 
 import { HomeProps } from "../../typings";
 
 export const Home = ({ navigation }: HomeProps) => {
     return (
-        <View>
+        <SafeAreaView>
             <Text>Home</Text>
-            <Button
+            {/* <Button
                 title="Go to Details"
                 onPress={() => navigation.navigate("Product")}
-            />
-        </View>
+            /> */}
+        </SafeAreaView>
     );
 };
