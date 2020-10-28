@@ -1,16 +1,11 @@
 import React from "react";
-import { View, Text, Button, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
+import { Search } from "../../Components/Search";
 
-import { HomeProps } from "../../typings";
-
-export const Home = ({ navigation }: HomeProps) => {
+export const Home = () => {
     return (
         <SafeAreaView>
-            <Text>Home</Text>
-            {/* <Button
-                title="Go to Details"
-                onPress={() => navigation.navigate("Product")}
-            /> */}
+            <Search />
         </SafeAreaView>
     );
 };
