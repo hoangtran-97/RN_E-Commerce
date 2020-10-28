@@ -14,22 +14,6 @@ export const ColorSwitcher = () => {
                 color={theme.foreground}
             />
         </Pressable>
-        // <Pressable
-        //     onPress={() => {
-        //         console.log("test");
-        //     }}
-        //     style={({ pressed }) => [
-        //         {
-        //             backgroundColor: pressed ? "rgb(210, 230, 255)" : "white",
-        //         },
-        //         styles.wrapperCustom,
-        //     ]}>
-        //     {({ pressed }) => (
-        //         <Text style={styles.text}>
-        //             {pressed ? "Pressed!" : "Press Me"}
-        //         </Text>
-        //     )}
-        // </Pressable>
     );
 };
 

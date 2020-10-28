@@ -46,7 +46,17 @@ export const Navigation = () => {
                     tabBarOptions={{
                         activeTintColor: theme.text,
                         inactiveTintColor: theme.background,
-                        style: { backgroundColor: theme.foreground },
+                        style: {
+                            backgroundColor: theme.foreground,
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+                            elevation: 5,
+                        },
                     }}>
                     <Tab.Screen name="Home" component={Home} />
                     <Tab.Screen name="Cart" component={Cart} />
