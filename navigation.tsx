@@ -39,7 +39,7 @@ export const Navigation = () => {
         theme.text === "#ffffff" ? "light-content" : "dark-content";
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={barStyle} />
+            <StatusBar barStyle={barStyle} backgroundColor={theme.foreground} />
             <NavigationContainer>
                 <Tab.Navigator
                     screenOptions={({ route }) => ({
