@@ -15,8 +15,14 @@ const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
+    const { theme } = useContext(ThemeContext);
     return (
-        <HomeStack.Navigator>
+        <HomeStack.Navigator
+            screenOptions={{
+                headerTitleStyle: { color: "white", fontWeight: "bold" },
+                headerStyle: { backgroundColor: theme.foreground },
+                headerTintColor: "#5AC8FA",
+            }}>
             <HomeStack.Screen
                 name="Home"
                 component={Home}
@@ -35,6 +41,7 @@ export const Navigation = () => {
             backgroundColor: theme.foreground,
         },
     });
+
     const barStyle =
         theme.text === "#ffffff" ? "light-content" : "dark-content";
     return (
@@ -67,14 +74,6 @@ export const Navigation = () => {
                         inactiveTintColor: theme.background,
                         style: {
                             backgroundColor: theme.foreground,
-                            shadowColor: "#000",
-                            shadowOffset: {
-                                width: 0,
-                                height: 2,
-                            },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 3.84,
-                            elevation: 5,
                         },
                     }}>
                     <Tab.Screen name="Home" component={HomeStackScreen} />

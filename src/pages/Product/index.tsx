@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
     View,
     Text,
@@ -6,13 +6,12 @@ import {
     Image,
     Button,
     ScrollView,
-    TextInput,
-    Alert,
 } from "react-native";
 import { Formik } from "formik";
 import { Picker } from "@react-native-picker/picker";
 import * as Yup from "yup";
 
+import { ThemeContext } from "../../context";
 import { ProductProps } from "../../typings";
 
 const validationSchema = Yup.object().shape({
@@ -28,6 +27,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export const Product = ({ route }: ProductProps) => {
+    const { theme } = useContext(ThemeContext);
     const {
         img,
         name,
@@ -38,7 +38,8 @@ export const Product = ({ route }: ProductProps) => {
         categories,
     } = route.params.item;
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={{ ...styles.container, backgroundColor: theme.foreground }}>
             <Formik
                 initialValues={{
                     variants: `${variants[0]}`,
@@ -54,17 +55,27 @@ export const Product = ({ route }: ProductProps) => {
                                 uri: `${img}`,
                             }}
                         />
-                        <Text style={styles.text}>Product name: {name}</Text>
-                        <Text style={styles.text}>
+                        <Text style={{ ...styles.text, color: theme.text }}>
+                            Product name: {name}
+                        </Text>
+                        <Text style={{ ...styles.text, color: theme.text }}>
                             Product description: {description}
                         </Text>
-                        <Text style={styles.text}>
+                        <Text style={{ ...styles.text, color: theme.text }}>
                             Product category: {categories}
                         </Text>
-                        <Text style={styles.text}>Price: {price} EUR</Text>
-                        <Text style={styles.text}>Variants: </Text>
+                        <Text style={{ ...styles.text, color: theme.text }}>
+                            Price: {price} EUR
+                        </Text>
+                        <Text style={{ ...styles.text, color: theme.text }}>
+                            Variants:{" "}
+                        </Text>
                         <Picker
                             mode="dropdown"
+                            style={{ color: theme.text }}
+                            itemStyle={{
+                                color: theme.text,
+                            }}
                             selectedValue={values.variants}
                             onValueChange={(itemValue: any) => {
                                 setFieldValue("variants", itemValue);
@@ -77,9 +88,15 @@ export const Product = ({ route }: ProductProps) => {
                                 />
                             ))}
                         </Picker>
-                        <Text style={styles.text}>Sizes: </Text>
+                        <Text style={{ ...styles.text, color: theme.text }}>
+                            Sizes:{" "}
+                        </Text>
                         <Picker
                             mode="dropdown"
+                            style={{ color: theme.text }}
+                            itemStyle={{
+                                color: theme.text,
+                            }}
                             selectedValue={values.sizes}
                             onValueChange={(itemValue: any) => {
                                 setFieldValue("sizes", itemValue);
@@ -92,7 +109,11 @@ export const Product = ({ route }: ProductProps) => {
                                 />
                             ))}
                         </Picker>
-                        <Button onPress={handleSubmit} title="Submit" />
+                        <Button
+                            onPress={handleSubmit}
+                            title="Add to cart"
+                            color="#5AC8FA"
+                        />
                     </View>
                 )}
             </Formik>
@@ -108,9 +129,6 @@ const styles = StyleSheet.create({
     img: {
         width: "100%",
         height: 300,
-        // resizeMode: "cover",
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
     },
     form: {},
     button: {},
