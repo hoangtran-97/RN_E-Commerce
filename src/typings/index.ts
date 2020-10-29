@@ -6,8 +6,10 @@ export * from "./user";
 export * from "./product";
 export * from "./ui";
 
-// Action types
-
+export type ProductProps = {
+    route: any;
+    navigation: any;
+};
 export type AdminAddProductProps = { token: string };
 
 export type AdminProductItemProps = {

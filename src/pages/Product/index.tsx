@@ -1,14 +1,19 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export const Product = ({
-    route,
-    navigation,
-}: {
-    route: any;
-    navigation: any;
-}) => {
-    const { _id } = route.params.item;
+import { ProductProps } from "../../typings";
+
+export const Product = ({ route }: ProductProps) => {
+    const {
+        _id,
+        img,
+        name,
+        description,
+        sizes,
+        variants,
+        price,
+        categories,
+    } = route.params.item;
     // navigation.setOptions({ title: `${_id}` });
     return (
         <View>
