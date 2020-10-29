@@ -62,7 +62,11 @@ export const Navigation = () => {
                         },
                     }}>
                     <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="Cart" component={Cart} />
+                    <Tab.Screen
+                        name="Cart"
+                        component={Cart}
+                        options={{ tabBarBadge: 3 }}
+                    />
                     <Tab.Screen name="Setting" component={Setting} />
                 </Tab.Navigator>
             </NavigationContainer>
