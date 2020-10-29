@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text } from "react-native";
 
 export const Product = ({
     route,
@@ -11,8 +11,8 @@ export const Product = ({
     const { _id } = route.params.item;
     // navigation.setOptions({ title: `${_id}` });
     return (
-        <SafeAreaView>
+        <View>
             <Text>{_id}</Text>
-        </SafeAreaView>
+        </View>
     );
 };
