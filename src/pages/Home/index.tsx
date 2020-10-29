@@ -9,65 +9,32 @@ import { ThemeContext } from "../../context";
 export const Home = () => {
     const [products] = useProduct();
     const { theme } = useContext(ThemeContext);
-    const styles = StyleSheet.create({
-        item__name: {
-            fontSize: 26,
-            fontWeight: "700",
-            color: theme.text,
-            marginVertical: 10,
-        },
-        item__price: {
-            fontSize: 16,
-            fontWeight: "500",
-            color: theme.text,
-            fontStyle: "italic",
-            marginVertical: 10,
-        },
-        container: {
-            backgroundColor: theme.background,
-            flex: 1,
-        },
-        container__item: {
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            margin: 10,
-            height: 400,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-            backgroundColor: theme.foreground,
-            borderRadius: 10,
-        },
-        img: {
-            width: "100%",
-            height: 300,
-            resizeMode: "cover",
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-        },
-    });
     const renderItem = ({ item }: { item: Product }) => (
-        <View style={styles.container__item}>
+        <View
+            style={{
+                ...styles.container__item,
+                backgroundColor: theme.foreground,
+            }}>
             <Image
                 style={styles.img}
                 source={{
                     uri: `${item.img}`,
                 }}
             />
-            <Text style={styles.item__name}>{item.name}</Text>
-            <Text style={styles.item__price}>{`${item.price} EUR`}</Text>
+            <Text style={{ ...styles.item__name, color: theme.text }}>
+                {item.name}
+            </Text>
+            <Text style={{ ...styles.item__price, color: theme.text }}>
+                {`${item.price} EUR`}
+            </Text>
         </View>
     );
+
     const emptyCart = () => <Text>Cart is empty</Text>;
 
     return (
-        <View style={styles.container}>
+        <View
+            style={{ ...styles.container, backgroundColor: theme.background }}>
             <Search />
             <FlatList
                 data={products}
@@ -78,3 +45,45 @@ export const Home = () => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    item__name: {
+        fontSize: 26,
+        fontWeight: "700",
+        marginVertical: 10,
+    },
+    item__price: {
+        fontSize: 16,
+        fontWeight: "500",
+
+        fontStyle: "italic",
+        marginVertical: 10,
+    },
+    container: {
+        flex: 1,
+    },
+    container__item: {
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        margin: 10,
+        height: 400,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+
+        borderRadius: 10,
+    },
+    img: {
+        width: "100%",
+        height: 300,
+        resizeMode: "cover",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+});

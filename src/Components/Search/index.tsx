@@ -7,44 +7,51 @@ import { ThemeContext } from "../../context";
 
 export const Search = () => {
     const { theme } = useContext(ThemeContext);
-    const styles = StyleSheet.create({
-        container: {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backgroundColor: theme.foreground,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-        },
-        search: {
-            flex: 1,
-            height: 50,
-            color: theme.text,
-        },
-        icon: {
-            color: theme.text,
-            marginHorizontal: 10,
-        },
-    });
 
     return (
-        <View style={styles.container}>
-            <FontAwesome5 name="search" size={25} style={styles.icon} />
+        <View
+            style={{ ...styles.container, backgroundColor: theme.foreground }}>
+            <FontAwesome5
+                name="search"
+                size={25}
+                style={{ ...styles.icon, color: theme.text }}
+            />
             <TextInput
                 placeholder="Search product..."
-                style={styles.search}
+                style={{ ...styles.search, color: theme.text }}
                 placeholderTextColor={theme.text}
             />
             <Pressable>
-                <FontAwesome name="close" size={25} style={styles.icon} />
+                <FontAwesome
+                    name="close"
+                    size={25}
+                    style={{ ...styles.icon, color: theme.text }}
+                />
             </Pressable>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    search: {
+        flex: 1,
+        height: 50,
+    },
+    icon: {
+        marginHorizontal: 10,
+    },
+});
