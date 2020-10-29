@@ -8,6 +8,7 @@ export const useProduct = (query: string) => {
     const [data, setData] = useState<Product[]>([]);
     const dispatch = useDispatch();
     const products = useSelector((state: AppState) => state.product.list);
+    const state = useSelector((state: AppState) => state);
     useEffect(() => {
         console.log("rendered");
         dispatch(fetchProducts());
@@ -15,6 +16,9 @@ export const useProduct = (query: string) => {
     useEffect(() => {
         setData(products);
     }, [products]);
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
     useEffect(() => {
         const sorted = [...products].filter((product: Product) =>
             product.name.toLowerCase().includes(query.toLowerCase()),
