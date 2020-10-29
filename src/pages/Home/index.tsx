@@ -1,17 +1,31 @@
 import React, { useContext, useState } from "react";
-import { Text, FlatList, View, Image, StyleSheet } from "react-native";
+import {
+    Text,
+    FlatList,
+    View,
+    Image,
+    StyleSheet,
+    Button,
+    Pressable,
+} from "react-native";
 
 import { useProduct } from "../../hooks/useProduct";
 import { Search } from "../../Components/Search";
 import { Product } from "../../typings";
 import { ThemeContext } from "../../context";
 
-export const Home = () => {
+export const Home = ({ navigation }: { navigation: any }) => {
     const [query, setQuery] = useState("");
     const [products] = useProduct(query);
     const { theme } = useContext(ThemeContext);
     const renderItem = ({ item }: { item: Product }) => (
-        <View
+        <Pressable
+            onPress={() => {
+                navigation.navigate("Product", {
+                    item,
+                    name: "Custom profile header",
+                });
+            }}
             style={{
                 ...styles.container__item,
                 backgroundColor: theme.foreground,
@@ -29,7 +43,7 @@ export const Home = () => {
             <Text style={{ ...styles.item__price, color: theme.text }}>
                 {`${item.price} EUR`}
             </Text>
-        </View>
+        </Pressable>
     );
 
     const emptyCart = () => (

@@ -1,10 +1,18 @@
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
 
-export const Product = () => {
+export const Product = ({
+    route,
+    navigation,
+}: {
+    route: any;
+    navigation: any;
+}) => {
+    const { _id } = route.params.item;
+    // navigation.setOptions({ title: `${_id}` });
     return (
         <SafeAreaView>
-            <Text>Product</Text>
+            <Text>{_id}</Text>
         </SafeAreaView>
     );
 };

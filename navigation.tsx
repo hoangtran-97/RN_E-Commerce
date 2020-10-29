@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView, StyleSheet, StatusBar, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -16,7 +16,7 @@ const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
     return (
-        <HomeStack.Navigator>
+        <HomeStack.Navigator headerMode="none">
             <HomeStack.Screen name="Home" component={Home} />
             <HomeStack.Screen name="Product" component={Product} />
         </HomeStack.Navigator>
