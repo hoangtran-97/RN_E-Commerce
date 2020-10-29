@@ -23,7 +23,10 @@ export const Home = () => {
             fontStyle: "italic",
             marginVertical: 10,
         },
-        container: { backgroundColor: theme.background, marginBottom: 50 },
+        container: {
+            backgroundColor: theme.background,
+            flex: 1,
+        },
         container__item: {
             display: "flex",
             justifyContent: "flex-start",
@@ -61,6 +64,8 @@ export const Home = () => {
             <Text style={styles.item__price}>{`${item.price} EUR`}</Text>
         </View>
     );
+    const emptyCart = () => <Text>Cart is empty</Text>;
+
     return (
         <View style={styles.container}>
             <Search />
@@ -68,6 +73,7 @@ export const Home = () => {
                 data={products}
                 renderItem={renderItem}
                 keyExtractor={(item) => item._id}
+                ListEmptyComponent={emptyCart}
             />
         </View>
     );
