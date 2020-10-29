@@ -16,6 +16,7 @@ export const Home = () => {
                 backgroundColor: theme.foreground,
             }}>
             <Image
+                resizeMode="cover"
                 style={styles.img}
                 source={{
                     uri: `${item.img}`,
@@ -30,7 +31,12 @@ export const Home = () => {
         </View>
     );
 
-    const emptyCart = () => <Text>Cart is empty</Text>;
+    const emptyCart = () => (
+        <View style={styles.container__empty}>
+            <Text>Your cart is empty</Text>
+            <Text>Pull down to refresh</Text>
+        </View>
+    );
 
     return (
         <View
@@ -41,6 +47,8 @@ export const Home = () => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item._id}
                 ListEmptyComponent={emptyCart}
+                refreshing={false}
+                onRefresh={() => {}}
             />
         </View>
     );
@@ -82,8 +90,12 @@ const styles = StyleSheet.create({
     img: {
         width: "100%",
         height: 300,
-        resizeMode: "cover",
+        // resizeMode: "cover",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+    },
+    container__empty: {
+        marginTop: 20,
+        alignItems: "center",
     },
 });
