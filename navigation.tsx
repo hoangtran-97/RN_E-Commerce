@@ -2,14 +2,26 @@ import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 import { Home } from "./src/pages/Home";
 import { Setting } from "./src/pages/Setting";
 import { Cart } from "./src/pages/Cart";
 import { ThemeContext } from "./src/context";
+import { Product } from "./src/pages/Product";
 
 const Tab = createBottomTabNavigator();
+const HomeStack = createStackNavigator();
+
+const HomeStackScreen = () => {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen name="Home" component={Home} />
+            <HomeStack.Screen name="Product" component={Product} />
+        </HomeStack.Navigator>
+    );
+};
 
 export const Navigation = () => {
     const { theme } = useContext(ThemeContext);
@@ -61,7 +73,7 @@ export const Navigation = () => {
                             elevation: 5,
                         },
                     }}>
-                    <Tab.Screen name="Home" component={Home} />
+                    <Tab.Screen name="Home" component={HomeStackScreen} />
                     <Tab.Screen
                         name="Cart"
                         component={Cart}
