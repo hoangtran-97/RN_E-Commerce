@@ -21,7 +21,7 @@ export type AdminUserItemProps = {
 export type HomeProps = {
     query: string;
 };
-export type HeaderProps = {
+export type SearchProps = {
     query: string;
     setQuery: Function;
 };

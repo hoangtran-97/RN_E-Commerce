@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Text, FlatList, View, Image, StyleSheet } from "react-native";
 
 import { useProduct } from "../../hooks/useProduct";
@@ -7,7 +7,8 @@ import { Product } from "../../typings";
 import { ThemeContext } from "../../context";
 
 export const Home = () => {
-    const [products] = useProduct();
+    const [query, setQuery] = useState("");
+    const [products] = useProduct(query);
     const { theme } = useContext(ThemeContext);
     const renderItem = ({ item }: { item: Product }) => (
         <View
@@ -41,7 +42,7 @@ export const Home = () => {
     return (
         <View
             style={{ ...styles.container, backgroundColor: theme.background }}>
-            <Search />
+            <Search setQuery={setQuery} query={query} />
             <FlatList
                 data={products}
                 renderItem={renderItem}

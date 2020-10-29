@@ -3,8 +3,9 @@ import { Platform } from "react-native";
 
 import { Product } from "../typings";
 
-export const useProduct = () => {
+export const useProduct = (query: string) => {
     const [data, setData] = useState<Product[]>([]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
         const URL =
             Platform.OS === "ios"
@@ -15,9 +16,16 @@ export const useProduct = () => {
                 const response = await fetch(URL);
                 const json = await response.json();
                 setData(json);
+                setProducts(json);
             } catch (error) {}
         };
         loadData();
     }, []);
+    useEffect(() => {
+        const sorted = [...products].filter((product: Product) =>
+            product.name.toLowerCase().includes(query.toLowerCase()),
+        );
+        setData(sorted);
+    }, [query, products]);
     return [data];
 };

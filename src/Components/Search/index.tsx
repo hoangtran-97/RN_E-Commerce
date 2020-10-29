@@ -3,9 +3,10 @@ import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
+import { SearchProps } from "../../typings";
 import { ThemeContext } from "../../context";
 
-export const Search = () => {
+export const Search = ({ setQuery, query }: SearchProps) => {
     const { theme } = useContext(ThemeContext);
 
     return (
@@ -20,6 +21,8 @@ export const Search = () => {
                 placeholder="Search product..."
                 style={{ ...styles.search, color: theme.text }}
                 placeholderTextColor={theme.text}
+                value={query}
+                onChangeText={(text) => setQuery(text)}
             />
             <Pressable>
                 <FontAwesome
