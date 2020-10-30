@@ -1,19 +1,10 @@
 import React, { useContext } from "react";
-import {
-    View,
-    Text,
-    Animated,
-    StyleSheet,
-    FlatList,
-    Alert,
-    ImageBackground,
-} from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { RectButton } from "react-native-gesture-handler";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 
-import { AppState, Product } from "../../typings";
+import { AppState } from "../../typings";
 import { ThemeContext } from "../../context";
+import { CartItem } from "../../Components/CartItem";
 
 const emptyCart = () => (
     <View style={styles.container__empty}>
@@ -25,51 +16,6 @@ const emptyCart = () => (
 export const Cart = () => {
     const { theme } = useContext(ThemeContext);
     const { inCart } = useSelector((state: AppState) => state.product);
-    const textStyle = { ...styles.text, color: theme.text };
-    const renderRightAction = (
-        text: string,
-        color: string,
-        x: number,
-        progress: any,
-    ) => {
-        const pressHandler = () => {
-            Alert.alert(text);
-        };
-        return (
-            <Animated.View style={styles.actionView}>
-                <RectButton
-                    style={[styles.rightAction, { backgroundColor: color }]}
-                    onPress={pressHandler}>
-                    <Text style={styles.actionText}>{text}</Text>
-                </RectButton>
-            </Animated.View>
-        );
-    };
-    const renderRightActions = (progress: any) => (
-        <View style={styles.rightActions}>
-            {renderRightAction("Remove from cart", "#dd2c00", 64, progress)}
-        </View>
-    );
-
-    const renderItem = ({ item }: { item: Product }) => (
-        <Swipeable renderRightActions={renderRightActions}>
-            <ImageBackground
-                resizeMode="cover"
-                style={styles.img}
-                imageStyle={styles.imageStyle}
-                source={{
-                    uri: `${item.img}`,
-                }}>
-                <View style={styles.imgOverlay}>
-                    <Text style={textStyle}>{item.name}</Text>
-                    <Text style={textStyle}>
-                        Size: {item.sizes} - Variant: {item.variants}
-                    </Text>
-                    <Text style={textStyle}>Price: {item.price} EUR</Text>
-                </View>
-            </ImageBackground>
-        </Swipeable>
-    );
 
     return (
         <View
@@ -77,7 +23,7 @@ export const Cart = () => {
             <FlatList
                 initialNumToRender={3}
                 data={inCart}
-                renderItem={renderItem}
+                renderItem={({ item }) => <CartItem item={item} />}
                 keyExtractor={(item) => item._id}
                 ListEmptyComponent={emptyCart}
                 refreshing={false}
@@ -88,12 +34,6 @@ export const Cart = () => {
 };
 
 const styles = StyleSheet.create({
-    text: { fontSize: 16, paddingLeft: 20, fontWeight: "700" },
-    img: {
-        marginBottom: 10,
-        width: "100%",
-        height: 100,
-    },
     container__empty: {
         marginTop: 20,
         alignItems: "center",
@@ -101,33 +41,4 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    imageStyle: {},
-    leftAction: {
-        flex: 1,
-        backgroundColor: "#497AFC",
-        justifyContent: "center",
-    },
-    actionText: {
-        color: "white",
-        fontSize: 16,
-        backgroundColor: "transparent",
-        padding: 10,
-    },
-    rightAction: {
-        height: 100,
-        alignItems: "center",
-        flex: 1,
-        justifyContent: "center",
-    },
-    rightActions: {
-        width: 192,
-        height: 100,
-        flexDirection: "row",
-    },
-    imgOverlay: {
-        backgroundColor: "rgba(66, 66, 66, 0.5)",
-        flex: 1,
-        justifyContent: "center",
-    },
-    actionView: { flex: 1, transform: [{ translateX: 0 }] },
 });
