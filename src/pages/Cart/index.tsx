@@ -3,22 +3,21 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../typings";
-import { ThemeContext } from "../../context";
+import { ThemeContext, themes } from "../../context";
 import { CartItem } from "../../Components/CartItem";
-
-const emptyCart = () => (
-    <View style={styles.container__empty}>
-        <Text>Your cart is empty</Text>
-    </View>
-);
 
 export const Cart = () => {
     const { theme } = useContext(ThemeContext);
     const { inCart } = useSelector((state: AppState) => state.product);
+    const emptyCart = () => (
+        <View style={styles.container__empty}>
+            <Text style={{ color: theme.text }}>Your cart is empty</Text>
+        </View>
+    );
 
     return (
         <View
-            style={{ ...styles.container, backgroundColor: theme.background }}>
+            style={{ ...styles.container, backgroundColor: theme.foreground }}>
             <FlatList
                 initialNumToRender={3}
                 data={inCart}
