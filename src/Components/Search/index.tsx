@@ -14,7 +14,7 @@ export const Search = ({ setQuery, query }: SearchProps) => {
             style={{ ...styles.container, backgroundColor: theme.foreground }}>
             <FontAwesome5
                 name="search"
-                size={25}
+                size={20}
                 style={{ ...styles.icon, color: theme.text }}
             />
             <TextInput
@@ -24,13 +24,15 @@ export const Search = ({ setQuery, query }: SearchProps) => {
                 value={query}
                 onChangeText={(text) => setQuery(text)}
             />
-            <Pressable>
-                <FontAwesome
-                    name="close"
-                    size={25}
-                    style={{ ...styles.icon, color: theme.text }}
-                />
-            </Pressable>
+            {query.length > 0 && (
+                <Pressable>
+                    <FontAwesome
+                        name="close"
+                        size={20}
+                        style={{ ...styles.icon, color: theme.text }}
+                    />
+                </Pressable>
+            )}
         </View>
     );
 };
@@ -55,6 +57,6 @@ const styles = StyleSheet.create({
         height: 50,
     },
     icon: {
-        marginHorizontal: 10,
+        marginHorizontal: 20,
     },
 });
