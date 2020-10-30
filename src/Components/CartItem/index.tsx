@@ -1,48 +1,69 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
     View,
     Text,
     Animated,
     StyleSheet,
-    Alert,
     ImageBackground,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { RectButton } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-import { Product } from "../../typings";
+import { removeProduct, removeProductDB } from "../../redux/actions";
+import { Product, AppState } from "../../typings";
 import { ThemeContext } from "../../context";
 
-const renderRightAction = (
-    text: string,
-    color: string,
-    x: number,
-    progress: any,
-) => {
-    const pressHandler = () => {
-        Alert.alert(text);
-    };
-    return (
-        <Animated.View style={styles.actionView}>
-            <RectButton
-                style={[styles.rightAction, { backgroundColor: color }]}
-                onPress={pressHandler}>
-                <Text style={styles.actionText}>{text}</Text>
-            </RectButton>
-        </Animated.View>
-    );
-};
-const renderRightActions = (progress: any) => (
-    <View style={styles.rightActions}>
-        {renderRightAction("Remove from cart", "#dd2c00", 64, progress)}
-    </View>
-);
-
 export const CartItem = ({ item }: { item: Product }) => {
+    const [isDelete, setIsDelete] = useState(false);
     const { theme } = useContext(ThemeContext);
+    const swipeRef: any = useRef(null);
+    const { currentUser, token } = useSelector((state: AppState) => state.user);
+    const dispatch = useDispatch();
+
     const textStyle = { ...styles.text, color: theme.text };
+    const { _id } = currentUser;
+    const renderRightAction = (
+        text: string,
+        color: string,
+        x: number,
+        progress: any,
+    ) => {
+        const pressHandler = () => {
+            swipeRef.current.close();
+            setIsDelete(true);
+        };
+        return (
+            <Animated.View style={styles.actionView}>
+                <RectButton
+                    style={[styles.rightAction, { backgroundColor: color }]}
+                    onPress={pressHandler}>
+                    <Text style={styles.actionText}>{text}</Text>
+                </RectButton>
+            </Animated.View>
+        );
+    };
+    const renderRightActions = (progress: any) => (
+        <View style={styles.rightActions}>
+            {renderRightAction("Remove from cart", "#dd2c00", 64, progress)}
+        </View>
+    );
+
     return (
-        <Swipeable renderRightActions={renderRightActions}>
+        <Swipeable
+            ref={swipeRef}
+            renderRightActions={renderRightActions}
+            onSwipeableClose={() => {
+                if (isDelete) {
+                    if (_id) {
+                        dispatch(
+                            removeProductDB(currentUser, item, _id, token),
+                        );
+                    } else {
+                        dispatch(removeProduct(item));
+                    }
+                }
+            }}>
             <ImageBackground
                 resizeMode="cover"
                 style={styles.img}
@@ -89,12 +110,12 @@ const styles = StyleSheet.create({
     },
     rightAction: {
         height: 100,
-        alignItems: "center",
+        alignItems: "flex-end",
         flex: 1,
         justifyContent: "center",
     },
     rightActions: {
-        width: 192,
+        width: 150,
         height: 100,
         flexDirection: "row",
     },

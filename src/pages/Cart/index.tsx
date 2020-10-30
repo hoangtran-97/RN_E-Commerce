@@ -9,7 +9,6 @@ import { CartItem } from "../../Components/CartItem";
 const emptyCart = () => (
     <View style={styles.container__empty}>
         <Text>Your cart is empty</Text>
-        <Text>Pull down to refresh</Text>
     </View>
 );
 
