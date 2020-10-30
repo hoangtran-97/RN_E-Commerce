@@ -15,7 +15,7 @@ import { addProduct, addProductDB } from "../../redux/actions";
 import { AppState, Product, ProductProps } from "../../typings";
 import { ThemeContext } from "../../context";
 
-export const ProductPage = ({ route }: ProductProps) => {
+export const ProductPage = ({ route, navigation }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const dispatch = useDispatch();
@@ -72,6 +72,7 @@ export const ProductPage = ({ route }: ProductProps) => {
                     } else {
                         dispatch(addProduct(cartItem));
                     }
+                    navigation.navigate("Home");
                 }}>
                 {({ handleSubmit, setFieldValue }) => (
                     <>
