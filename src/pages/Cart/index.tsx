@@ -33,9 +33,9 @@ export const Cart = () => {
             outputRange: [-20, 0, 0, 1],
         });
         return (
-            <TouchableOpacity>
+            <RectButton>
                 <Animated.Text>Archive</Animated.Text>
-            </TouchableOpacity>
+            </RectButton>
         );
     };
 
@@ -74,7 +74,7 @@ export const Cart = () => {
 };
 
 const styles = StyleSheet.create({
-    text: { fontSize: 16, paddingLeft: 20, opacity: 1 },
+    text: { fontSize: 16, paddingLeft: 20, fontWeight: "700" },
     img: {
         marginBottom: 10,
         width: "100%",
