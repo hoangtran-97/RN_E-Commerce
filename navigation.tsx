@@ -3,8 +3,10 @@ import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
+import { AppState } from "./src/typings";
 import { Home } from "./src/pages/Home";
 import { Setting } from "./src/pages/Setting";
 import { Cart } from "./src/pages/Cart";
@@ -16,6 +18,7 @@ const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
     const { theme } = useContext(ThemeContext);
+
     return (
         <HomeStack.Navigator
             screenOptions={{
@@ -35,6 +38,7 @@ const HomeStackScreen = () => {
 
 export const Navigation = () => {
     const { theme } = useContext(ThemeContext);
+    const { inCart } = useSelector((state: AppState) => state.product);
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -80,7 +84,10 @@ export const Navigation = () => {
                     <Tab.Screen
                         name="Cart"
                         component={Cart}
-                        options={{ tabBarBadge: 3 }}
+                        options={{
+                            tabBarBadge:
+                                inCart.length > 0 ? inCart.length : undefined,
+                        }}
                     />
                     <Tab.Screen name="Setting" component={Setting} />
                 </Tab.Navigator>
