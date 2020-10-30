@@ -9,7 +9,7 @@ import { Home } from "./src/pages/Home";
 import { Setting } from "./src/pages/Setting";
 import { Cart } from "./src/pages/Cart";
 import { ThemeContext } from "./src/context";
-import { Product } from "./src/pages/Product";
+import { ProductPage } from "./src/pages/Product";
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -28,7 +28,7 @@ const HomeStackScreen = () => {
                 component={Home}
                 options={{ headerShown: false }}
             />
-            <HomeStack.Screen name="Product" component={Product} />
+            <HomeStack.Screen name="Product" component={ProductPage} />
         </HomeStack.Navigator>
     );
 };

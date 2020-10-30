@@ -8,13 +8,17 @@ import {
     ScrollView,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 
+import { addProduct, addProductDB } from "../../redux/actions";
+import { AppState, Product, ProductProps } from "../../typings";
 import { ThemeContext } from "../../context";
-import { ProductProps } from "../../typings";
 
-export const Product = ({ route }: ProductProps) => {
+export const ProductPage = ({ route }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
+    const { currentUser, token } = useSelector((state: AppState) => state.user);
+    const dispatch = useDispatch();
     const {
         img,
         name,
@@ -54,7 +58,21 @@ export const Product = ({ route }: ProductProps) => {
                     variants: `${variants[0]}`,
                     sizes: `${sizes[0]}`,
                 }}
-                onSubmit={(values) => console.log(values)}>
+                onSubmit={(values) => {
+                    const cartItem: Product = { ...route.params.item };
+                    cartItem.sizes = [];
+                    cartItem.sizes.push(parseInt(values.sizes, 10));
+                    cartItem.variants = [];
+                    cartItem.variants.push(values.variants);
+                    const { _id } = currentUser;
+                    if (_id) {
+                        dispatch(
+                            addProductDB(currentUser, cartItem, _id, token),
+                        );
+                    } else {
+                        dispatch(addProduct(cartItem));
+                    }
+                }}>
                 {({ handleSubmit, setFieldValue }) => (
                     <>
                         <Image
