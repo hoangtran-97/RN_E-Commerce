@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
+    ImageBackground,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RectButton } from "react-native-gesture-handler";
@@ -25,7 +26,7 @@ const emptyCart = () => (
 export const Cart = () => {
     const { theme } = useContext(ThemeContext);
     const { inCart } = useSelector((state: AppState) => state.product);
-    console.log(inCart);
+    const textStyle = { ...styles.text, color: theme.text };
     const renderRightActions = (progress: any, dragX: any) => {
         const trans = dragX.interpolate({
             inputRange: [0, 50, 100, 101],
@@ -40,14 +41,19 @@ export const Cart = () => {
 
     const renderItem = ({ item }: { item: Product }) => (
         <Swipeable renderRightActions={renderRightActions}>
-            <Image
+            <ImageBackground
                 resizeMode="cover"
                 style={styles.img}
+                imageStyle={styles.imageStyle}
                 source={{
                     uri: `${item.img}`,
-                }}
-            />
-            <Text>"hello"</Text>
+                }}>
+                <Text style={textStyle}>{item.name}</Text>
+                <Text style={textStyle}>
+                    Size: {item.sizes} - Variant: {item.variants}
+                </Text>
+                <Text style={textStyle}>Price: {item.price} EUR</Text>
+            </ImageBackground>
         </Swipeable>
     );
 
@@ -68,10 +74,13 @@ export const Cart = () => {
 };
 
 const styles = StyleSheet.create({
+    text: { fontSize: 16, paddingLeft: 20, opacity: 1 },
     img: {
         marginBottom: 10,
         width: "100%",
-        height: 300,
+        height: 100,
+
+        justifyContent: "center",
     },
     container__empty: {
         marginTop: 20,
@@ -80,4 +89,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    imageStyle: { opacity: 0.5 },
 });
