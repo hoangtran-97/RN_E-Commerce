@@ -4,8 +4,6 @@ import {
     Text,
     Animated,
     StyleSheet,
-    TouchableOpacity,
-    Image,
     FlatList,
     Alert,
     ImageBackground,
@@ -28,41 +26,17 @@ export const Cart = () => {
     const { theme } = useContext(ThemeContext);
     const { inCart } = useSelector((state: AppState) => state.product);
     const textStyle = { ...styles.text, color: theme.text };
-    // const renderRightActions = (progress: any, dragX: any) => {
-    //     const trans = dragX.interpolate({
-    //         inputRange: [0, 50, 100, 101],
-    //         outputRange: [-20, 0, 0, 1],
-    //     });
-    //     return (
-    //         <TouchableOpacity
-    //             style={{ transform: [{ translateX: 0 }], width: 192 }}>
-    //             <Animated.Text
-    //                 style={[
-    //                     styles.actionText,
-    //                     {
-    //                         transform: [{ translateX: trans }],
-    //                     },
-    //                 ]}>
-    //                 Remove from cart
-    //             </Animated.Text>
-    //         </TouchableOpacity>
-    //     );
-    // };
     const renderRightAction = (
         text: string,
         color: string,
         x: number,
         progress: any,
     ) => {
-        const trans = progress.interpolate({
-            inputRange: [0, 1],
-            outputRange: [x, 0],
-        });
         const pressHandler = () => {
             Alert.alert(text);
         };
         return (
-            <Animated.View style={{ flex: 1, transform: [{ translateX: 0 }] }}>
+            <Animated.View style={styles.actionView}>
                 <RectButton
                     style={[styles.rightAction, { backgroundColor: color }]}
                     onPress={pressHandler}>
@@ -73,7 +47,7 @@ export const Cart = () => {
     };
     const renderRightActions = (progress: any) => (
         <View style={styles.rightActions}>
-            {renderRightAction("More", "#dd2c00", 64, progress)}
+            {renderRightAction("Remove from cart", "#dd2c00", 64, progress)}
         </View>
     );
 
@@ -155,4 +129,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
     },
+    actionView: { flex: 1, transform: [{ translateX: 0 }] },
 });
