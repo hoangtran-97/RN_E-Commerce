@@ -4,9 +4,9 @@ import { ContextChildrenProps } from "../typings";
 
 export const themes = {
     light: {
-        foreground: "#8eed4d",
-        background: "#dbfac5",
-        icon: "#424242",
+        foreground: "#ffffff",
+        background: "#b2b2b2",
+        icon: "#000000",
         text: "#000000",
         deg: "rotate(0deg)",
     },
