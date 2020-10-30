@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { enableScreens } from "react-native-screens";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { useSelector } from "react-redux";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -15,10 +15,8 @@ import { Cart } from "./src/pages/Cart";
 import { ThemeContext } from "./src/context";
 import { ProductPage } from "./src/pages/Product";
 
-enableScreens();
-
-const Tab = createBottomTabNavigator();
-const HomeStack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
     const { theme } = useContext(ThemeContext);
@@ -57,26 +55,27 @@ export const Navigation = () => {
             <StatusBar barStyle={barStyle} backgroundColor={theme.foreground} />
             <NavigationContainer>
                 <Tab.Navigator
-                    screenOptions={({ route }) => ({
-                        tabBarIcon: ({ color, size }) => {
-                            let iconName = "question";
+                    // screenOptions={({ route }) => ({
+                    //     tabBarIcon: ({ color, size }) => {
+                    //         let iconName = "question";
 
-                            if (route.name === "Home") {
-                                iconName = "home";
-                            } else if (route.name === "Setting") {
-                                iconName = "user-cog";
-                            } else if (route.name === "Cart") {
-                                iconName = "shopping-cart";
-                            }
-                            return (
-                                <FontAwesome5
-                                    name={iconName}
-                                    size={size}
-                                    color={color}
-                                />
-                            );
-                        },
-                    })}
+                    //         if (route.name === "Home") {
+                    //             iconName = "home";
+                    //         } else if (route.name === "Setting") {
+                    //             iconName = "user-cog";
+                    //         } else if (route.name === "Cart") {
+                    //             iconName = "shopping-cart";
+                    //         }
+                    //         return (
+                    //             <FontAwesome5
+                    //                 name={iconName}
+                    //                 size={size}
+                    //                 color={color}
+                    //             />
+                    //         );
+                    //     },
+                    // })}
+                    tabBarPosition="bottom"
                     tabBarOptions={{
                         activeTintColor: theme.text,
                         inactiveTintColor: theme.background,
@@ -88,10 +87,10 @@ export const Navigation = () => {
                     <Tab.Screen
                         name="Cart"
                         component={Cart}
-                        options={{
-                            tabBarBadge:
-                                inCart.length > 0 ? inCart.length : undefined,
-                        }}
+                        // options={{
+                        //     tabBarBadge:
+                        //         inCart.length > 0 ? inCart.length : undefined,
+                        // }}
                     />
                     <Tab.Screen name="Setting" component={Setting} />
                 </Tab.Navigator>
