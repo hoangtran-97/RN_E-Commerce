@@ -7,8 +7,8 @@ import {
     Button,
     ScrollView,
 } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
 import { Formik } from "formik";
-import { Picker } from "@react-native-picker/picker";
 import * as Yup from "yup";
 
 import { ThemeContext } from "../../context";
@@ -37,6 +37,14 @@ export const Product = ({ route }: ProductProps) => {
         price,
         categories,
     } = route.params.item;
+    const variantsPicker = variants.map((variant: string) => ({
+        label: `${variant}`,
+        value: `${variant}`,
+    }));
+    const sizesPicker = sizes.map((size: number) => ({
+        label: `${size}`,
+        value: `${size}`,
+    }));
     return (
         <ScrollView
             style={{ ...styles.container, backgroundColor: theme.foreground }}>
@@ -68,47 +76,47 @@ export const Product = ({ route }: ProductProps) => {
                             Price: {price} EUR
                         </Text>
                         <Text style={{ ...styles.text, color: theme.text }}>
-                            Variants:{" "}
+                            Variants:
                         </Text>
-                        <Picker
-                            mode="dropdown"
-                            style={{ color: theme.text }}
-                            itemStyle={{
-                                color: theme.text,
+                        <RNPickerSelect
+                            useNativeAndroidPickerStyle={false}
+                            onValueChange={(value) => console.log(value)}
+                            items={variantsPicker}
+                            style={{
+                                ...pickerSelectStyles,
+                                inputIOS: {
+                                    ...pickerSelectStyles.inputIOS,
+                                    backgroundColor: theme.background,
+                                    color: theme.text,
+                                },
+                                inputAndroid: {
+                                    ...pickerSelectStyles.inputAndroid,
+                                    backgroundColor: theme.background,
+                                    color: theme.text,
+                                },
                             }}
-                            selectedValue={values.variants}
-                            onValueChange={(itemValue: any) => {
-                                setFieldValue("variants", itemValue);
-                            }}>
-                            {variants.map((variant: string) => (
-                                <Picker.Item
-                                    label={variant}
-                                    value={variant}
-                                    key={variant}
-                                />
-                            ))}
-                        </Picker>
+                        />
                         <Text style={{ ...styles.text, color: theme.text }}>
-                            Sizes:{" "}
+                            Sizes:
                         </Text>
-                        <Picker
-                            mode="dropdown"
-                            style={{ color: theme.text }}
-                            itemStyle={{
-                                color: theme.text,
+                        <RNPickerSelect
+                            useNativeAndroidPickerStyle={false}
+                            onValueChange={(value) => console.log(value)}
+                            items={sizesPicker}
+                            style={{
+                                ...pickerSelectStyles,
+                                inputIOS: {
+                                    ...pickerSelectStyles.inputIOS,
+                                    backgroundColor: theme.background,
+                                    color: theme.text,
+                                },
+                                inputAndroid: {
+                                    ...pickerSelectStyles.inputAndroid,
+                                    backgroundColor: theme.background,
+                                    color: theme.text,
+                                },
                             }}
-                            selectedValue={values.sizes}
-                            onValueChange={(itemValue: any) => {
-                                setFieldValue("sizes", itemValue);
-                            }}>
-                            {sizes.map((size: number) => (
-                                <Picker.Item
-                                    label={`${size}`}
-                                    value={size}
-                                    key={size}
-                                />
-                            ))}
-                        </Picker>
+                        />
                         <Button
                             onPress={handleSubmit}
                             title="Add to cart"
@@ -135,4 +143,29 @@ const styles = StyleSheet.create({
     span: {},
     picker: { height: 100, width: 300 },
     container__picker: { display: "flex", flexDirection: "row" },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        marginHorizontal: 10,
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: "white",
+        borderRadius: 4,
+        color: "black",
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        marginHorizontal: 10,
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: "white",
+        borderRadius: 4,
+        color: "black",
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
 });
