@@ -5,7 +5,7 @@ import {
     View,
     Image,
     StyleSheet,
-    Pressable,
+    TouchableOpacity,
 } from "react-native";
 
 import { useProduct } from "../../hooks/useProduct";
@@ -18,7 +18,8 @@ export const Home = ({ navigation }: { navigation: any }) => {
     const [products] = useProduct(query);
     const { theme } = useContext(ThemeContext);
     const renderItem = ({ item }: { item: Product }) => (
-        <Pressable
+        <TouchableOpacity
+            activeOpacity={0.5}
             onPress={() => {
                 navigation.navigate("Product", {
                     item,
@@ -42,7 +43,7 @@ export const Home = ({ navigation }: { navigation: any }) => {
             <Text style={{ ...styles.item__price, color: theme.text }}>
                 {`${item.price} EUR`}
             </Text>
-        </Pressable>
+        </TouchableOpacity>
     );
 
     const emptyCart = () => (
@@ -57,6 +58,7 @@ export const Home = ({ navigation }: { navigation: any }) => {
             style={{ ...styles.container, backgroundColor: theme.background }}>
             <Search setQuery={setQuery} query={query} />
             <FlatList
+                initialNumToRender={3}
                 data={products}
                 renderItem={renderItem}
                 keyExtractor={(item) => item._id}
