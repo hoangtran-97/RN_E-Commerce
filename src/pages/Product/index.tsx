@@ -9,22 +9,9 @@ import {
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { Formik } from "formik";
-import * as Yup from "yup";
 
 import { ThemeContext } from "../../context";
 import { ProductProps } from "../../typings";
-
-const validationSchema = Yup.object().shape({
-    name: Yup.string().min(2, "Too Short!").max(20, "Too Long!").required(),
-    description: Yup.string()
-        .min(10, "Too Short!")
-        .max(60, "Too Long!")
-        .required(),
-    categories: Yup.string().required(),
-    sizes: Yup.number().required().integer(),
-    variants: Yup.string().required(),
-    price: Yup.number().required().positive().integer(),
-});
 
 export const Product = ({ route }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
@@ -45,6 +32,20 @@ export const Product = ({ route }: ProductProps) => {
         label: `${size}`,
         value: `${size}`,
     }));
+    const textStyle = { ...styles.text, color: theme.text };
+    const pickerStyle = {
+        ...pickerSelectStyles,
+        inputIOS: {
+            ...pickerSelectStyles.inputIOS,
+            backgroundColor: theme.background,
+            color: theme.text,
+        },
+        inputAndroid: {
+            ...pickerSelectStyles.inputAndroid,
+            backgroundColor: theme.background,
+            color: theme.text,
+        },
+    };
     return (
         <ScrollView
             style={{ ...styles.container, backgroundColor: theme.foreground }}>
@@ -54,8 +55,8 @@ export const Product = ({ route }: ProductProps) => {
                     sizes: `${sizes[0]}`,
                 }}
                 onSubmit={(values) => console.log(values)}>
-                {({ handleSubmit, values, setFieldValue }) => (
-                    <View>
+                {({ handleSubmit }) => (
+                    <>
                         <Image
                             resizeMode="cover"
                             style={styles.img}
@@ -63,66 +64,36 @@ export const Product = ({ route }: ProductProps) => {
                                 uri: `${img}`,
                             }}
                         />
-                        <Text style={{ ...styles.text, color: theme.text }}>
-                            Product name: {name}
-                        </Text>
-                        <Text style={{ ...styles.text, color: theme.text }}>
+                        <Text style={textStyle}>Product name: {name}</Text>
+                        <Text style={textStyle}>
                             Product description: {description}
                         </Text>
-                        <Text style={{ ...styles.text, color: theme.text }}>
+                        <Text style={textStyle}>
                             Product category: {categories}
                         </Text>
-                        <Text style={{ ...styles.text, color: theme.text }}>
-                            Price: {price} EUR
-                        </Text>
-                        <Text style={{ ...styles.text, color: theme.text }}>
-                            Variants:
-                        </Text>
+                        <Text style={textStyle}>Price: {price} EUR</Text>
+                        <Text style={textStyle}>Variants:</Text>
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
                             onValueChange={(value) => console.log(value)}
                             items={variantsPicker}
-                            style={{
-                                ...pickerSelectStyles,
-                                inputIOS: {
-                                    ...pickerSelectStyles.inputIOS,
-                                    backgroundColor: theme.background,
-                                    color: theme.text,
-                                },
-                                inputAndroid: {
-                                    ...pickerSelectStyles.inputAndroid,
-                                    backgroundColor: theme.background,
-                                    color: theme.text,
-                                },
-                            }}
+                            style={pickerStyle}
                         />
-                        <Text style={{ ...styles.text, color: theme.text }}>
-                            Sizes:
-                        </Text>
+                        <Text style={textStyle}>Sizes:</Text>
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
                             onValueChange={(value) => console.log(value)}
                             items={sizesPicker}
-                            style={{
-                                ...pickerSelectStyles,
-                                inputIOS: {
-                                    ...pickerSelectStyles.inputIOS,
-                                    backgroundColor: theme.background,
-                                    color: theme.text,
-                                },
-                                inputAndroid: {
-                                    ...pickerSelectStyles.inputAndroid,
-                                    backgroundColor: theme.background,
-                                    color: theme.text,
-                                },
-                            }}
+                            style={pickerStyle}
                         />
-                        <Button
-                            onPress={handleSubmit}
-                            title="Add to cart"
-                            color="#5AC8FA"
-                        />
-                    </View>
+                        <View style={styles.button}>
+                            <Button
+                                onPress={handleSubmit}
+                                title="Add to cart"
+                                color="#5AC8FA"
+                            />
+                        </View>
+                    </>
                 )}
             </Formik>
         </ScrollView>
@@ -130,19 +101,19 @@ export const Product = ({ route }: ProductProps) => {
 };
 
 const styles = StyleSheet.create({
-    text: { fontSize: 20, margin: 5, marginLeft: 20 },
-    container: {},
-    container__inner: {},
-    img__container: {},
+    text: {
+        fontSize: 20,
+        marginVertical: 10,
+        marginHorizontal: 10,
+        marginLeft: 20,
+    },
+    container: { flex: 1 },
     img: {
+        marginBottom: 10,
         width: "100%",
         height: 300,
     },
-    form: {},
-    button: {},
-    span: {},
-    picker: { height: 100, width: 300 },
-    container__picker: { display: "flex", flexDirection: "row" },
+    button: { marginVertical: 10 },
 });
 
 const pickerSelectStyles = StyleSheet.create({
