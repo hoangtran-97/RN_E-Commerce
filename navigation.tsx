@@ -3,6 +3,8 @@ import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { enableScreens } from "react-native-screens";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { useSelector } from "react-redux";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -13,8 +15,10 @@ import { Cart } from "./src/pages/Cart";
 import { ThemeContext } from "./src/context";
 import { ProductPage } from "./src/pages/Product";
 
+enableScreens();
+
 const Tab = createBottomTabNavigator();
-const HomeStack = createStackNavigator();
+const HomeStack = createNativeStackNavigator();
 
 const HomeStackScreen = () => {
     const { theme } = useContext(ThemeContext);
@@ -22,7 +26,7 @@ const HomeStackScreen = () => {
     return (
         <HomeStack.Navigator
             screenOptions={{
-                headerTitleStyle: { color: "white", fontWeight: "bold" },
+                // headerTitleStyle: { color: "white", fontWeight: "bold" },
                 headerStyle: { backgroundColor: theme.foreground },
                 headerTintColor: "#5AC8FA",
             }}>
