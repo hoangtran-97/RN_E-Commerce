@@ -55,7 +55,7 @@ export const Product = ({ route }: ProductProps) => {
                     sizes: `${sizes[0]}`,
                 }}
                 onSubmit={(values) => console.log(values)}>
-                {({ handleSubmit }) => (
+                {({ handleSubmit, setFieldValue }) => (
                     <>
                         <Image
                             resizeMode="cover"
@@ -75,14 +75,18 @@ export const Product = ({ route }: ProductProps) => {
                         <Text style={textStyle}>Variants:</Text>
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
-                            onValueChange={(value) => console.log(value)}
+                            onValueChange={(value) =>
+                                setFieldValue("variants", value)
+                            }
                             items={variantsPicker}
                             style={pickerStyle}
                         />
                         <Text style={textStyle}>Sizes:</Text>
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
-                            onValueChange={(value) => console.log(value)}
+                            onValueChange={(value) =>
+                                setFieldValue("sizes", value)
+                            }
                             items={sizesPicker}
                             style={pickerStyle}
                         />
