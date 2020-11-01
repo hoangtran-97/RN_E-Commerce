@@ -67,9 +67,14 @@ const URL =
 export const fetchProducts = () => {
     return (dispatch: Dispatch) => {
         return fetch(URL).then((res) =>
-            res.json().then((products) => {
-                dispatch(receiveProducts(products));
-            }),
+            res
+                .json()
+                .then((products) => {
+                    dispatch(receiveProducts(products));
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                }),
         );
     };
 };
