@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Text, FlatList, View, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { useProduct } from "../../hooks/useProduct";
 import { Search } from "../../Components/Search";
 import { ThemeContext } from "../../context";
 import { HomeItem } from "../../Components/HomeItem";
+import { fetchProducts } from "../../redux/actions";
 
 const emptyCart = () => (
     <View style={styles.container__empty}>
@@ -13,6 +15,7 @@ const emptyCart = () => (
     </View>
 );
 export const Home = ({ navigation }: { navigation: any }) => {
+    const dispatch = useDispatch();
     const [query, setQuery] = useState("");
     const [products] = useProduct(query);
     const { theme } = useContext(ThemeContext);
@@ -30,7 +33,9 @@ export const Home = ({ navigation }: { navigation: any }) => {
                 keyExtractor={(item) => item._id}
                 ListEmptyComponent={emptyCart}
                 refreshing={false}
-                onRefresh={() => {}}
+                onRefresh={() => {
+                    dispatch(fetchProducts());
+                }}
             />
         </View>
     );

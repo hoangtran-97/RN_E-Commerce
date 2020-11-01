@@ -1,7 +1,6 @@
 import { Dispatch } from "redux";
 import { Platform } from "react-native";
 import axios from "axios";
-import { useToast } from "react-native-styled-toast";
 
 import {
     User,
