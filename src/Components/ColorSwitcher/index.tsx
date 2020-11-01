@@ -1,22 +1,9 @@
 import React, { useContext } from "react";
-import { Pressable, StyleSheet } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Button } from "react-native";
 
 import { ThemeContext } from "../../context";
 
 export const ColorSwitcher = () => {
-    const { theme, switchTheme } = useContext(ThemeContext);
-    return (
-        <Pressable onPress={switchTheme} style={styles.container}>
-            <MaterialCommunityIcons
-                name="moon-last-quarter"
-                size={50}
-                color={theme.foreground}
-            />
-        </Pressable>
-    );
+    const { switchTheme } = useContext(ThemeContext);
+    return <Button onPress={switchTheme} title="Swith theme" />;
 };
-
-const styles = StyleSheet.create({
-    container: {},
-});
