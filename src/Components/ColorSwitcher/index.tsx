@@ -26,7 +26,7 @@ export const ColorSwitcher = () => {
         Animated.timing(spinValue, {
             toValue: 1,
             duration: 300,
-            easing: Easing.linear, // Easing is an additional import from react-native
+            easing: Easing.linear,
         }).start();
     };
     const animation = () => {
