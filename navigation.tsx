@@ -14,6 +14,7 @@ import { Setting } from "./src/pages/Setting";
 import { Cart } from "./src/pages/Cart";
 import { ThemeContext } from "./src/context";
 import { ProductPage } from "./src/pages/Product";
+import { ImageViewer } from "./src/pages/ImageViewer";
 
 enableScreens();
 
@@ -36,6 +37,11 @@ const HomeStackScreen = () => {
                 options={{ headerShown: false }}
             />
             <HomeStack.Screen name="Product" component={ProductPage} />
+            <HomeStack.Screen
+                name="Image"
+                component={ImageViewer}
+                options={{ title: "" }}
+            />
         </HomeStack.Navigator>
     );
 };

@@ -38,6 +38,7 @@ export const HomeItem = ({
                 }}
             />
             <ActivityIndicator
+                size="large"
                 style={styles.activityIndicator}
                 animating={isLoading}
             />

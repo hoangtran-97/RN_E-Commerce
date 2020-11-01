@@ -6,6 +6,7 @@ import {
     Image,
     Button,
     ScrollView,
+    TouchableOpacity,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useSelector, useDispatch } from "react-redux";
@@ -79,13 +80,20 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
                 }}>
                 {({ handleSubmit, setFieldValue }) => (
                     <>
-                        <Image
-                            resizeMode="cover"
-                            style={styles.img}
-                            source={{
-                                uri: `${img}`,
-                            }}
-                        />
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => {
+                                navigation.navigate("Image", { img });
+                            }}>
+                            <Image
+                                resizeMode="cover"
+                                style={styles.img}
+                                source={{
+                                    uri: `${img}`,
+                                }}
+                            />
+                        </TouchableOpacity>
+
                         <Text style={textStyle}>Product name: {name}</Text>
                         <Text style={textStyle}>
                             Product description: {description}
