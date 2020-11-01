@@ -1,5 +1,11 @@
-import React, { useContext } from "react";
-import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+    Text,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    ActivityIndicator,
+} from "react-native";
 
 import { Product } from "../../typings";
 import { ThemeContext } from "../../context";
@@ -12,6 +18,7 @@ export const HomeItem = ({
     navigation: any;
 }) => {
     const { theme } = useContext(ThemeContext);
+    const [isLoading, setIsLoading] = useState(true);
     return (
         <TouchableOpacity
             activeOpacity={0.5}
@@ -23,11 +30,16 @@ export const HomeItem = ({
                 backgroundColor: theme.foreground,
             }}>
             <Image
+                onLoadEnd={() => setIsLoading((prev) => !prev)}
                 resizeMode="cover"
                 style={styles.img}
                 source={{
                     uri: `${item.img}`,
                 }}
+            />
+            <ActivityIndicator
+                style={styles.activityIndicator}
+                animating={isLoading}
             />
             <Text style={{ ...styles.item__name, color: theme.text }}>
                 {item.name}
@@ -74,5 +86,12 @@ const styles = StyleSheet.create({
         height: 300,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+    },
+    activityIndicator: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
     },
 });
