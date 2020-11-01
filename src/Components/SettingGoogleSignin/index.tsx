@@ -4,8 +4,16 @@ import {
     GoogleSigninButton,
     statusCodes,
 } from "@react-native-community/google-signin";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
+import { AppState } from "../../typings";
+import { addToken, updateUser } from "../../redux/actions";
 
 const SettingGoogleSignin = () => {
+    const dispatch = useDispatch();
+    const cart = useSelector((state: AppState) => state.product.inCart);
+    const list = useSelector((state: AppState) => state.product.list);
     GoogleSignin.configure({
         iosClientId:
             "676751270206-uuto9uma4dr52fu4k95dg0kpt6b5701j.apps.googleusercontent.com", // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
@@ -14,6 +22,7 @@ const SettingGoogleSignin = () => {
         try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
+            responseGoogle(userInfo);
             console.log(userInfo);
         } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -25,6 +34,18 @@ const SettingGoogleSignin = () => {
             } else {
                 // some other error happened
             }
+        }
+    };
+    const responseGoogle = async (response: any) => {
+        const res = await axios.post(
+            "http://localhost:3001/api/v1/auth/googleTokenId",
+            {
+                id_token: response.idToken,
+            },
+        );
+        if (res.status === 200) {
+            dispatch(updateUser(res.data.user, res.data.token, cart, list));
+            dispatch(addToken(res.data.token));
         }
     };
     return (
