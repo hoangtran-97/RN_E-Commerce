@@ -10,14 +10,13 @@ export const useProduct = (query: string) => {
     const products = useSelector((state: AppState) => state.product.list);
     const state = useSelector((state: AppState) => state);
     useEffect(() => {
-        console.log("rendered");
         dispatch(fetchProducts());
     }, [dispatch]);
     useEffect(() => {
         setData(products);
     }, [products]);
     useEffect(() => {
-        console.log(state);
+        console.log("AppState", state);
     }, [state]);
     useEffect(() => {
         const sorted = [...products].filter((product: Product) =>
