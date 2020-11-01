@@ -16,6 +16,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* fast_track_5_react_nativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fast_track_5_react_nativeTests.m */; };
 		388CD926DB7902EB422CCD86 /* libPods-fast_track_5_react_native-fast_track_5_react_nativeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEF4EF633C9D49E3C069404 /* libPods-fast_track_5_react_native-fast_track_5_react_nativeTests.a */; };
+		4F08D646254F52C700A24634 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F08D645254F52C700A24634 /* BootSplash.storyboard */; };
 		4F3428D4254EE74F00C4CA74 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F3428D3254EE74F00C4CA74 /* GoogleService-Info.plist */; };
 		5D95C1806B8E6C35058DCD06 /* libPods-fast_track_5_react_native-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 809421B0597656A1542FEBBC /* libPods-fast_track_5_react_native-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -57,6 +58,7 @@
 		2D02E4901E0B4A5D006451C7 /* fast_track_5_react_native-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fast_track_5_react_native-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		476423934E78A8CA0FB26A6D /* Pods-fast_track_5_react_native-fast_track_5_react_nativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast_track_5_react_native-fast_track_5_react_nativeTests.release.xcconfig"; path = "Target Support Files/Pods-fast_track_5_react_native-fast_track_5_react_nativeTests/Pods-fast_track_5_react_native-fast_track_5_react_nativeTests.release.xcconfig"; sourceTree = "<group>"; };
 		4D9424B47287722CB3D6C75C /* Pods-fast_track_5_react_native-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast_track_5_react_native-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-fast_track_5_react_native-tvOSTests/Pods-fast_track_5_react_native-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F08D645254F52C700A24634 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = fast_track_5_react_native/BootSplash.storyboard; sourceTree = "<group>"; };
 		4F3428D3254EE74F00C4CA74 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		60BEFD289CB2E57E155D27BF /* Pods-fast_track_5_react_native-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fast_track_5_react_native-tvOS.release.xcconfig"; path = "Target Support Files/Pods-fast_track_5_react_native-tvOS/Pods-fast_track_5_react_native-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		809421B0597656A1542FEBBC /* libPods-fast_track_5_react_native-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fast_track_5_react_native-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				4F08D645254F52C700A24634 /* BootSplash.storyboard */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -346,6 +349,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4F3428D4254EE74F00C4CA74 /* GoogleService-Info.plist in Resources */,
+				4F08D646254F52C700A24634 /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

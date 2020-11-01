@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { ThemeProvider as ToastThemeProvider } from "styled-components";
 import { ToastProvider } from "react-native-styled-toast";
+import RNBootSplash from "react-native-bootsplash";
 
 import makeStore from "./src/redux/store";
 import { ThemeProvider } from "./src/context";
@@ -22,6 +23,7 @@ const theme = {
 };
 
 const App = () => {
+    RNBootSplash.hide({ duration: 300 }); // fade
     return (
         <Provider store={store}>
             <ToastThemeProvider theme={theme}>
