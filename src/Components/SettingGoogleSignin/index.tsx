@@ -9,7 +9,7 @@ import axios from "axios";
 
 import { AppState } from "../../typings";
 import { addToken, updateUser } from "../../redux/actions";
-
+//TODO: ADD GOOGLE SIGNIN
 const SettingGoogleSignin = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state: AppState) => state.product.inCart);
