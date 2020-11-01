@@ -5,5 +5,5 @@ import { ThemeContext } from "../../context";
 
 export const ColorSwitcher = () => {
     const { switchTheme } = useContext(ThemeContext);
-    return <Button onPress={switchTheme} title="Swith theme" />;
+    return <Button onPress={switchTheme} title="Swith theme" color="#5AC8FA" />;
 };
