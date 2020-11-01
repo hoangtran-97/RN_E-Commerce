@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useSelector } from "react-redux";
 
 import { AppState } from "../../typings";
-import { ThemeContext, themes } from "../../context";
+import { ThemeContext } from "../../context";
 import { CartItem } from "../../Components/CartItem";
 
 export const Cart = () => {
