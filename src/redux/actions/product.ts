@@ -1,5 +1,8 @@
 import { Dispatch } from "redux";
 import { Platform } from "react-native";
+import axios from "axios";
+import { useToast } from "react-native-styled-toast";
+
 import {
     User,
     ProductActions,
@@ -66,16 +69,14 @@ const URL =
 
 export const fetchProducts = () => {
     return (dispatch: Dispatch) => {
-        return fetch(URL).then((res) =>
-            res
-                .json()
-                .then((products) => {
-                    dispatch(receiveProducts(products));
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                }),
-        );
+        return axios
+            .get(URL)
+            .then((products) => {
+                dispatch(receiveProducts(products.data));
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     };
 };
 export const addProductDB = (
