@@ -25,7 +25,7 @@ export const Search = ({ setQuery, query }: SearchProps) => {
                 onChangeText={(text) => setQuery(text)}
             />
             {query.length > 0 && (
-                <Pressable>
+                <Pressable onPress={() => setQuery("")}>
                     <FontAwesome
                         name="close"
                         size={20}
