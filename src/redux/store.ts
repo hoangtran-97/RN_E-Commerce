@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import createSagaMiddleware from "redux-saga";
 import thunk from "redux-thunk";
 
-import { AppState, User } from "../typings";
+import { AppState, ToastMessage, User } from "../typings";
 import createRootReducer from "./reducers";
 import rootSaga from "./sagas";
 
@@ -13,7 +13,7 @@ const initState: AppState = {
         list: [],
     },
     ui: {
-        dialogOpen: {},
+        toast: {} as ToastMessage,
     },
     user: {
         list: [],

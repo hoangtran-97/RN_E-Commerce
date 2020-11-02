@@ -15,12 +15,12 @@ export default function products(
         currentUser: {} as User,
         token: "",
     },
-    action: UserActions
+    action: UserActions,
 ): UserState {
     switch (action.type) {
         case AUTHORIZE_USERS: {
             const { user } = action.payload;
-            const index = state.list.findIndex(p => p._id === user._id);
+            const index = state.list.findIndex((p) => p._id === user._id);
             if (index >= 0) {
                 state.list[index] = { ...user };
                 return { ...state, list: [...state.list] };

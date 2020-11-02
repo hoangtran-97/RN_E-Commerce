@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 import { useToast } from "react-native-styled-toast";
 
-import { addProduct, addProductDB } from "../../redux/actions";
+import { addProduct, addProductDB, addToast } from "../../redux/actions";
 import { AppState, Product, ProductProps } from "../../typings";
 import { ThemeContext } from "../../context";
 
@@ -76,7 +76,7 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
                         dispatch(addProduct(cartItem));
                     }
                     navigation.navigate("Home");
-                    toast({ message: `${name} added to cart` });
+                    dispatch(addToast({ message: `${name} added to cart` }));
                 }}>
                 {({ handleSubmit, setFieldValue }) => (
                     <>

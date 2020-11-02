@@ -7,6 +7,7 @@ import RNBootSplash from "react-native-bootsplash";
 import makeStore from "./src/redux/store";
 import { ThemeProvider } from "./src/context";
 import { Navigation } from "./navigation";
+import { ToastMessageRedux } from "./src/Components/Toast";
 
 const store = makeStore();
 const theme = {
@@ -28,6 +29,7 @@ const App = () => {
         <Provider store={store}>
             <ToastThemeProvider theme={theme}>
                 <ToastProvider position="BOTTOM">
+                    <ToastMessageRedux />
                     <ThemeProvider>
                         <Navigation />
                     </ThemeProvider>

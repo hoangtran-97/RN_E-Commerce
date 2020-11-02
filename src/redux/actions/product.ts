@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import { Platform } from "react-native";
+import { addToast } from "../actions";
 
 import axios from "axios";
 
@@ -12,6 +13,7 @@ import {
     REMOVE_PRODUCT_LIST,
     ADD_PRODUCT,
     ADD_PRODUCT_LIST,
+    IntentType,
 } from "../../typings";
 
 export const addProduct = (product: Product): ProductActions => {
@@ -75,7 +77,13 @@ export const fetchProducts = () => {
                 dispatch(receiveProducts(products.data));
             })
             .catch((error) => {
-                console.error("Error:", error);
+                console.error("Error:", error.message);
+                dispatch(
+                    addToast({
+                        message: error.message,
+                        intent: IntentType.ERROR,
+                    }),
+                );
             });
     };
 };

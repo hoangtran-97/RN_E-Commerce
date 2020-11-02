@@ -11,7 +11,8 @@ export const useProduct = (query: string) => {
     const state = useSelector((state: AppState) => state);
     useEffect(() => {
         dispatch(fetchProducts());
-    }, [dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     useEffect(() => {
         setData(products);
     }, [products]);

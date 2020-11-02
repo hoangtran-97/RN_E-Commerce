@@ -13,7 +13,7 @@ export default function products(
         list: [],
         inCart: [],
     },
-    action: ProductActions
+    action: ProductActions,
 ): ProductState {
     switch (action.type) {
         case RECEIVE_PRODUCTS:
@@ -25,7 +25,7 @@ export default function products(
         case ADD_PRODUCT: {
             const { product } = action.payload;
             const productExist = state.inCart.find(
-                p => p.name === product.name
+                (p) => p.name === product.name,
             );
             if (productExist) {
                 return state;
@@ -35,7 +35,7 @@ export default function products(
         case ADD_PRODUCT_LIST: {
             const { product } = action.payload;
             const productExist = state.inCart.find(
-                p => p.name === product.name
+                (p) => p.name === product.name,
             );
             if (productExist) {
                 return state;
@@ -44,7 +44,9 @@ export default function products(
         }
         case REMOVE_PRODUCT: {
             const { product } = action.payload;
-            const index = state.inCart.findIndex(p => p.name === product.name);
+            const index = state.inCart.findIndex(
+                (p) => p.name === product.name,
+            );
             if (index >= 0) {
                 state.inCart.splice(index, 1);
                 return { ...state, inCart: [...state.inCart] };
@@ -53,7 +55,7 @@ export default function products(
         }
         case REMOVE_PRODUCT_LIST: {
             const { product } = action.payload;
-            const index = state.list.findIndex(p => p.name === product.name);
+            const index = state.list.findIndex((p) => p.name === product.name);
             if (index >= 0) {
                 state.list.splice(index, 1);
                 return { ...state, list: [...state.list] };
