@@ -11,7 +11,6 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
-import { useToast } from "react-native-styled-toast";
 
 import { addProduct, addProductDB, addToast } from "../../redux/actions";
 import { AppState, Product, ProductProps } from "../../typings";
@@ -21,7 +20,7 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const dispatch = useDispatch();
-    const { toast } = useToast();
+
     const {
         img,
         name,
