@@ -48,7 +48,7 @@ export const ColorSwitcher = () => {
                         switchTheme();
                     }}>
                     <FontAwesome5
-                        name="moon"
+                        name={spinning ? "moon" : "sun"}
                         size={50}
                         color={theme.text}
                         solid
