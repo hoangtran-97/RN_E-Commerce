@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Text, FlatList, View, StyleSheet } from "react-native";
+import LottieView from "lottie-react-native";
 import { useDispatch } from "react-redux";
 
 import { useProduct } from "../../hooks/useProduct";
@@ -12,6 +13,12 @@ const emptyCart = () => (
     <View style={styles.container__empty}>
         <Text>Your cart is empty</Text>
         <Text>Pull down to refresh</Text>
+        <LottieView
+            source={require("../../../assets/empty_box.json")}
+            style={styles.lottie}
+            autoPlay
+            loop
+        />
     </View>
 );
 export const Home = ({ navigation }: { navigation: any }) => {
@@ -49,4 +56,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignItems: "center",
     },
+    lottie: { width: 500 },
 });
