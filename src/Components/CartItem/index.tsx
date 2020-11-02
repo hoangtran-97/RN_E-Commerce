@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
     View,
     Text,
@@ -12,15 +12,13 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import { removeProduct, removeProductDB, addToast } from "../../redux/actions";
 import { Product, AppState } from "../../typings";
-import { ThemeContext } from "../../context";
 
 export const CartItem = ({ item }: { item: Product }) => {
     const [isDelete, setIsDelete] = useState(false);
-    const { theme } = useContext(ThemeContext);
     const swipeRef: any = useRef(null);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const dispatch = useDispatch();
-    const textStyle = { ...styles.text, color: theme.text };
+
     const { _id } = currentUser;
     const renderRightAction = (text: string, color: string) => {
         const pressHandler = () => {
@@ -67,18 +65,18 @@ export const CartItem = ({ item }: { item: Product }) => {
                     uri: `${item.img}`,
                 }}>
                 <View style={styles.imgOverlay}>
-                    <Text style={textStyle}>{item.name}</Text>
-                    <Text style={textStyle}>
+                    <Text style={styles.text}>{item.name}</Text>
+                    <Text style={styles.text}>
                         Size: {item.sizes} - Variant: {item.variants}
                     </Text>
-                    <Text style={textStyle}>Price: {item.price} EUR</Text>
+                    <Text style={styles.text}>Price: {item.price} EUR</Text>
                 </View>
             </ImageBackground>
         </Swipeable>
     );
 };
 const styles = StyleSheet.create({
-    text: { fontSize: 16, paddingLeft: 20, fontWeight: "700" },
+    text: { fontSize: 16, paddingLeft: 20, fontWeight: "700", color: "white" },
     img: {
         marginBottom: 10,
         width: "100%",
@@ -115,7 +113,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     imgOverlay: {
-        backgroundColor: "rgba(66, 66, 66, 0.5)",
+        backgroundColor: "rgba(66, 66, 66, 0.7)",
         flex: 1,
         justifyContent: "center",
     },
