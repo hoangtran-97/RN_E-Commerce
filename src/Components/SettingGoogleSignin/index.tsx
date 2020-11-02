@@ -15,10 +15,8 @@ const SettingGoogleSignin = () => {
     const cart = useSelector((state: AppState) => state.product.inCart);
     const list = useSelector((state: AppState) => state.product.list);
     GoogleSignin.configure({
-        webClientId:
-            "676751270206-squqjbl6r98dopd1r6uh14672cp9ckqv.apps.googleusercontent.com",
         iosClientId:
-            "676751270206-uuto9uma4dr52fu4k95dg0kpt6b5701j.apps.googleusercontent.com", // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+            "676751270206-grnc80muler331lnn376q4i2dksq65vu.apps.googleusercontent.com", // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
     });
     const signinGoogle = async () => {
         try {
