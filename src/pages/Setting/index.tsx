@@ -13,7 +13,6 @@ export const Setting = () => {
     const { userName, email } = currentUser;
     const userIsSignedin = token.length > 0 ? true : false;
     const textStyle = { ...styles.text, color: theme.text };
-    console.log("signin status", userIsSignedin);
 
     return (
         <View
