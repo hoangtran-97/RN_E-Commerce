@@ -11,7 +11,7 @@ import { RectButton } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useToast } from "react-native-styled-toast";
 
-import { removeProduct, removeProductDB } from "../../redux/actions";
+import { removeProduct, removeProductDB, addToast } from "../../redux/actions";
 import { Product, AppState } from "../../typings";
 import { ThemeContext } from "../../context";
 
@@ -32,10 +32,7 @@ export const CartItem = ({ item }: { item: Product }) => {
     ) => {
         const pressHandler = () => {
             swipeRef.current.close();
-            toast({
-                message: "Item removed from cart",
-                shouldVibrate: true,
-            });
+            dispatch(addToast({ message: "Item removed from cart" }));
             setIsDelete(true);
         };
         return (
