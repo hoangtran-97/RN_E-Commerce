@@ -8,7 +8,7 @@ export const useProduct = (query: string) => {
     const [data, setData] = useState<Product[]>([]);
     const dispatch = useDispatch();
     const products = useSelector((state: AppState) => state.product.list);
-    const state = useSelector((state: AppState) => state);
+
     useEffect(() => {
         dispatch(fetchProducts());
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -16,9 +16,7 @@ export const useProduct = (query: string) => {
     useEffect(() => {
         setData(products);
     }, [products]);
-    useEffect(() => {
-        console.log("AppState", state);
-    }, [state]);
+
     useEffect(() => {
         const sorted = [...products].filter((product: Product) =>
             product.name.toLowerCase().includes(query.toLowerCase()),
