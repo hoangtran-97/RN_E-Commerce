@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     Button,
     ScrollView,
     TouchableOpacity,
+    ActivityIndicator,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +20,7 @@ import { ThemeContext } from "../../context";
 export const ProductPage = ({ route, navigation }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
+    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
 
     const {
@@ -85,11 +87,17 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
                                 navigation.navigate("Image", { img });
                             }}>
                             <Image
+                                onLoadEnd={() => setIsLoading((prev) => !prev)}
                                 resizeMode="cover"
                                 style={styles.img}
                                 source={{
                                     uri: `${img}`,
                                 }}
+                            />
+                            <ActivityIndicator
+                                size="large"
+                                style={styles.activityIndicator}
+                                animating={isLoading}
                             />
                         </TouchableOpacity>
 
@@ -147,6 +155,13 @@ const styles = StyleSheet.create({
         height: 300,
     },
     button: { marginVertical: 10 },
+    activityIndicator: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+    },
 });
 
 const pickerSelectStyles = StyleSheet.create({

@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RectButton } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { useToast } from "react-native-styled-toast";
 
 import { removeProduct, removeProductDB, addToast } from "../../redux/actions";
 import { Product, AppState } from "../../typings";
@@ -21,15 +20,9 @@ export const CartItem = ({ item }: { item: Product }) => {
     const swipeRef: any = useRef(null);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const dispatch = useDispatch();
-    const { toast } = useToast();
     const textStyle = { ...styles.text, color: theme.text };
     const { _id } = currentUser;
-    const renderRightAction = (
-        text: string,
-        color: string,
-        x: number,
-        progress: any,
-    ) => {
+    const renderRightAction = (text: string, color: string) => {
         const pressHandler = () => {
             swipeRef.current.close();
             dispatch(addToast({ message: "Item removed from cart" }));
@@ -45,9 +38,9 @@ export const CartItem = ({ item }: { item: Product }) => {
             </Animated.View>
         );
     };
-    const renderRightActions = (progress: any) => (
+    const renderRightActions = () => (
         <View style={styles.rightActions}>
-            {renderRightAction("Remove from cart", "#dd2c00", 64, progress)}
+            {renderRightAction("Remove from cart", "#dd2c00")}
         </View>
     );
 

@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Dispatch } from "redux";
-import { useSelector, useDispatch } from "react-redux";
-import { View, Text } from "react-native";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import { useToast } from "react-native-styled-toast";
 
 import { AppState } from "../../typings";
@@ -19,5 +18,5 @@ export const ToastMessageRedux = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [message]);
-    return <View />;
+    return null;
 };
