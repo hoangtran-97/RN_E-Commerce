@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { enableScreens } from "react-native-screens";
-import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { useSelector } from "react-redux";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
@@ -19,7 +18,7 @@ import { ImageViewer } from "./src/pages/ImageViewer";
 enableScreens();
 
 const Tab = createBottomTabNavigator();
-const HomeStack = createNativeStackNavigator();
+const HomeStack = createStackNavigator();
 
 const HomeStackScreen = () => {
     const { theme } = useContext(ThemeContext);

@@ -9,7 +9,11 @@
         "test": "jest",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "clean:android": "cd android && ./gradlew clean && cd ../",
-        "clean:ios": "cd ios && xcodebuild clean && cd ../"
+        "clean:ios": "cd ios && xcodebuild clean && cd ../",
+        "6": "react-native run-ios --simulator \"iPhone 6\"",
+        "X": "react-native run-ios --simulator \"iPhone X\"",
+        "IPAD": "react-native run-ios --simulator \"iPad Air\"",
+        "XSMAX": "react-native run-ios --simulator \"iPhone Xs Max\""
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "^1.13.1",
