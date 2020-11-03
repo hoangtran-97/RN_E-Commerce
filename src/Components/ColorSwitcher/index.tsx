@@ -48,9 +48,9 @@ export const ColorSwitcher = () => {
                         switchTheme();
                     }}>
                     <FontAwesome5
-                        name={spinning ? "moon" : "sun"}
+                        name="moon"
                         size={50}
-                        color={theme.text}
+                        color={spinning ? "#5AC8FA" : "yellow"}
                         solid
                     />
                 </TouchableOpacity>

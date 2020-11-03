@@ -5,6 +5,7 @@ import {
     Animated,
     StyleSheet,
     ImageBackground,
+    ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RectButton } from "react-native-gesture-handler";
@@ -15,6 +16,7 @@ import { Product, AppState } from "../../typings";
 
 export const CartItem = ({ item }: { item: Product }) => {
     const [isDelete, setIsDelete] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const swipeRef: any = useRef(null);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const dispatch = useDispatch();
@@ -58,6 +60,7 @@ export const CartItem = ({ item }: { item: Product }) => {
                 }
             }}>
             <ImageBackground
+                onLoadEnd={() => setIsLoading((prev) => !prev)}
                 resizeMode="cover"
                 style={styles.img}
                 imageStyle={styles.imageStyle}
@@ -72,6 +75,11 @@ export const CartItem = ({ item }: { item: Product }) => {
                     <Text style={styles.text}>Price: {item.price} EUR</Text>
                 </View>
             </ImageBackground>
+            <ActivityIndicator
+                size="large"
+                style={styles.activityIndicator}
+                animating={isLoading}
+            />
         </Swipeable>
     );
 };
@@ -118,4 +126,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     actionView: { flex: 1, transform: [{ translateX: 0 }] },
+    activityIndicator: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+    },
 });
