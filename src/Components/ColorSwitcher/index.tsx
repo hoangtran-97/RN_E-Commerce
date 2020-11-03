@@ -6,7 +6,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { ThemeContext } from "../../context";
 
 export const ColorSwitcher = () => {
-    const { switchTheme, theme } = useContext(ThemeContext);
+    const { switchTheme } = useContext(ThemeContext);
     const [spinning, setSpinning] = useState(false);
     const spinValue = useRef(new Animated.Value(0)).current;
 
