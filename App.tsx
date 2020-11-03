@@ -3,12 +3,13 @@ import { Provider } from "react-redux";
 import { ThemeProvider as ToastThemeProvider } from "styled-components";
 import { ToastProvider } from "react-native-styled-toast";
 import RNBootSplash from "react-native-bootsplash";
+import { enableScreens } from "react-native-screens";
 
 import makeStore from "./src/redux/store";
 import { ThemeProvider } from "./src/context";
 import { Navigation } from "./navigation";
 import { ToastMessageRedux } from "./src/Components/Toast";
-
+enableScreens();
 const store = makeStore();
 const theme = {
     space: [0, 4, 8, 12, 16, 20, 24, 32, 40, 48],

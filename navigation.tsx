@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { enableScreens } from "react-native-screens";
 import { useSelector } from "react-redux";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -15,10 +16,10 @@ import { ThemeContext } from "./src/context";
 import { ProductPage } from "./src/pages/Product";
 import { ImageViewer } from "./src/pages/ImageViewer";
 
-enableScreens();
+// enableScreens();
 
 const Tab = createBottomTabNavigator();
-const HomeStack = createStackNavigator();
+const HomeStack = createNativeStackNavigator();
 
 const HomeStackScreen = () => {
     const { theme } = useContext(ThemeContext);
@@ -58,9 +59,13 @@ export const Navigation = () => {
     const barStyle =
         theme.text === "#ffffff" ? "light-content" : "dark-content";
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={barStyle} backgroundColor={theme.foreground} />
-            <NavigationContainer>
+        <NavigationContainer>
+            <SafeAreaView style={styles.container}>
+                <StatusBar
+                    barStyle={barStyle}
+                    backgroundColor={theme.foreground}
+                />
+
                 <Tab.Navigator
                     screenOptions={({ route }) => ({
                         tabBarIcon: ({ color, size }) => {
@@ -100,7 +105,7 @@ export const Navigation = () => {
                     />
                     <Tab.Screen name="Setting" component={Setting} />
                 </Tab.Navigator>
-            </NavigationContainer>
-        </SafeAreaView>
+            </SafeAreaView>
+        </NavigationContainer>
     );
 };
