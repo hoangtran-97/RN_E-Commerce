@@ -1,9 +1,8 @@
 import { Dispatch } from "redux";
 import { Platform } from "react-native";
-import { addToast } from "../actions";
-
 import axios from "axios";
 
+import { addToast, addUser } from "../actions";
 import {
     User,
     ProductActions,
@@ -14,9 +13,10 @@ import {
     ADD_PRODUCT,
     ADD_PRODUCT_LIST,
     IntentType,
+    ProductInCart,
 } from "../../typings";
 
-export const addProduct = (product: Product): ProductActions => {
+export const addProduct = (product: ProductInCart): ProductActions => {
     return {
         type: ADD_PRODUCT,
         payload: {
@@ -87,26 +87,68 @@ export const fetchProducts = () => {
             });
     };
 };
+// export const addProductDB = (
+//     user: User,
+//     product: Product,
+//     _id: string,
+//     token: string,
+// ) => {
+//     return (dispatch: Dispatch) => {
+//         const result = Array.from(new Set([product._id].concat(user.cart)));
+//         const updateUser = { ...user, cart: [...result] };
+//         return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: "bearer " + token,
+//             },
+//             body: JSON.stringify(updateUser),
+//         })
+//             .then((response) => response.json())
+//             .then((data) => {
+//                 dispatch(addProduct(product));
+//             })
+//             .catch((error) => {
+//                 console.error("Error:", error);
+//             });
+//     };
+// };
 export const addProductDB = (
     user: User,
-    product: Product,
+    product: ProductInCart,
     _id: string,
     token: string,
 ) => {
     return (dispatch: Dispatch) => {
-        const result = Array.from(new Set([product._id].concat(user.cart)));
-        const updateUser = { ...user, cart: [...result] };
+        let updatedUser = {};
+        const productExist = user.cart.find((p) => p.product === product._id);
+        if (productExist) {
+            updatedUser = { ...user };
+        } else {
+            const result = Array.from(
+                new Set(
+                    [
+                        { quantity: product.quantity, product: product._id },
+                    ].concat(user.cart),
+                ),
+            );
+            updatedUser = { ...user, cart: [...result] };
+        }
+
         return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: "bearer " + token,
             },
-            body: JSON.stringify(updateUser),
+            body: JSON.stringify(updatedUser),
         })
             .then((response) => response.json())
             .then((data) => {
                 dispatch(addProduct(product));
+                if (data._id) {
+                    dispatch(addUser(data));
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -134,6 +176,38 @@ export const addProductListDB = (product: Product) => {
     };
 };
 
+// export const removeProductDB = (
+//     user: User,
+//     product: Product,
+//     _id: string,
+//     token: string,
+// ) => {
+//     return (dispatch: Dispatch) => {
+//         const index = user.cart.findIndex((p) => p === product._id);
+//         if (index >= 0) {
+//             user.cart.splice(index, 1);
+//         }
+//         const updateUser = { ...user };
+//         console.log(updateUser);
+
+//         return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: "bearer " + token,
+//             },
+//             body: JSON.stringify(updateUser),
+//         })
+//             .then((response) => response.json())
+//             .then((data) => {
+//                 dispatch(removeProduct(product));
+//             })
+//             .catch((error) => {
+//                 console.error("Error:", error);
+//             });
+//     };
+// };
+
 export const removeProductDB = (
     user: User,
     product: Product,
@@ -141,12 +215,12 @@ export const removeProductDB = (
     token: string,
 ) => {
     return (dispatch: Dispatch) => {
-        const index = user.cart.findIndex((p) => p === product._id);
+        const index = user.cart.findIndex((p) => p.product === product._id);
         if (index >= 0) {
             user.cart.splice(index, 1);
         }
         const updateUser = { ...user };
-        console.log(updateUser);
+        console.log("redux/action", updateUser);
 
         return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
             method: "PUT",

@@ -9,6 +9,8 @@ import {
     REMOVE_USER,
     RECEIVE_USERS,
     AUTHORIZE_USERS,
+    ProductInCart,
+    ProductInfo,
 } from "../../typings";
 import { addProduct } from "../actions";
 
@@ -57,18 +59,56 @@ export const receiveUsers = (users: User[]): UserActions => {
     };
 };
 
+// export const updateUser = (
+//     user: User,
+//     token: string,
+//     cart: Product[],
+//     list: Product[],
+// ) => {
+//     const { _id } = user;
+//     //Extracted IDs
+//     const cartResult = cart.map((a) => a._id);
+//     //Unique Set
+//     const result = Array.from(new Set(cartResult.concat(user.cart)));
+//     const updateUser = { ...user, cart: [...result] };
+//     return (dispatch: Dispatch) => {
+//         fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+//             method: "PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: "bearer " + token,
+//             },
+//             body: JSON.stringify(updateUser),
+//         })
+//             .then((response) => response.json())
+//             .then((data) => {
+//                 console.log("Success:", data);
+//                 dispatch(addUser(data));
+//                 data.cart.forEach((item: string) => {
+//                     const result = list.find((p) => p._id === item);
+//                     result && dispatch(addProduct(result));
+//                 });
+//             })
+//             .catch((error) => {
+//                 console.error("Error:", error);
+//             });
+//     };
+// };
 export const updateUser = (
     user: User,
     token: string,
-    cart: Product[],
-    list: Product[]
+    cart: ProductInCart[],
+    list: Product[],
 ) => {
     const { _id } = user;
     //Extracted IDs
-    const cartResult = cart.map(a => a._id);
+    const cartResult = cart.map((a) => ({
+        quantity: a.quantity,
+        product: a._id,
+    }));
     //Unique Set
     const result = Array.from(new Set(cartResult.concat(user.cart)));
-    const updateUser = { ...user, cart: [...result] };
+    const updatedUser = { ...user, cart: [...result] };
     return (dispatch: Dispatch) => {
         fetch(`http://localhost:3001/api/v1/users/${_id}`, {
             method: "PUT",
@@ -76,18 +116,27 @@ export const updateUser = (
                 "Content-Type": "application/json",
                 Authorization: "bearer " + token,
             },
-            body: JSON.stringify(updateUser),
+            body: JSON.stringify(updatedUser),
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Success:", data);
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success update:", data);
                 dispatch(addUser(data));
-                data.cart.forEach((item: string) => {
-                    const result = list.find(p => p._id === item);
-                    result && dispatch(addProduct(result));
+
+                data.cart.forEach((item: ProductInfo) => {
+                    const singleResult = list.find(
+                        (p) => p._id === item.product,
+                    );
+                    singleResult &&
+                        dispatch(
+                            addProduct({
+                                ...singleResult,
+                                quantity: item.quantity,
+                            }),
+                        );
                 });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("Error:", error);
             });
     };
@@ -95,10 +144,10 @@ export const updateUser = (
 
 export const fetchUsers = () => {
     return (dispatch: Dispatch) => {
-        return fetch("http://localhost:3001/api/v1/users/").then(res =>
-            res.json().then(users => {
+        return fetch("http://localhost:3001/api/v1/users/").then((res) =>
+            res.json().then((users) => {
                 dispatch(receiveUsers(users));
-            })
+            }),
         );
     };
 };
@@ -107,10 +156,10 @@ export const authorizeUserDB = (
     user: User,
     banStatus: boolean,
     _id: string,
-    token: string
+    token: string,
 ) => {
     return (dispatch: Dispatch) => {
-        const updateUser = { ...user, isBanned: `${banStatus}` };
+        const updatedUser = { ...user, isBanned: `${banStatus}` };
 
         return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
             method: "PUT",
@@ -118,13 +167,13 @@ export const authorizeUserDB = (
                 "Content-Type": "application/json",
                 Authorization: "bearer " + token,
             },
-            body: JSON.stringify(updateUser),
+            body: JSON.stringify(updatedUser),
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 dispatch(authorizeUser(data));
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("Error:", error);
             });
     };

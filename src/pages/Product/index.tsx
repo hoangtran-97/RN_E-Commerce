@@ -14,15 +14,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 
 import { addProduct, addProductDB, addToast } from "../../redux/actions";
-import { AppState, Product, ProductProps } from "../../typings";
+import { AppState, ProductInCart, ProductProps } from "../../typings";
 import { ThemeContext } from "../../context";
 
 export const ProductPage = ({ route, navigation }: ProductProps) => {
     const { theme } = useContext(ThemeContext);
     const { currentUser, token } = useSelector((state: AppState) => state.user);
     const [isLoading, setIsLoading] = useState(true);
+    const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
-
+    const addQuantity = () => {
+        setQuantity((prev) => (prev += 1));
+    };
+    const reduceQuantity = () => {
+        if (quantity === 0) {
+            return;
+        }
+        setQuantity((prev) => (prev -= 1));
+    };
     const {
         img,
         name,
@@ -63,7 +72,10 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
                     sizes: `${sizes[0]}`,
                 }}
                 onSubmit={(values) => {
-                    const cartItem: Product = { ...route.params.item };
+                    const cartItem: ProductInCart = {
+                        ...route.params.item,
+                        ...{ quantity },
+                    };
                     cartItem.sizes = [];
                     cartItem.sizes.push(parseInt(values.sizes, 10));
                     cartItem.variants = [];
@@ -100,7 +112,17 @@ export const ProductPage = ({ route, navigation }: ProductProps) => {
                                 animating={isLoading}
                             />
                         </TouchableOpacity>
-
+                        <Text style={textStyle}>Quantity: {quantity}</Text>
+                        <Button
+                            title="+"
+                            color={theme.text}
+                            onPress={addQuantity}
+                        />
+                        <Button
+                            title="-"
+                            color={theme.text}
+                            onPress={reduceQuantity}
+                        />
                         <Text style={textStyle}>Product name: {name}</Text>
                         <Text style={textStyle}>
                             Product description: {description}
