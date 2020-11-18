@@ -15,6 +15,9 @@ yarn install
 ``` 
 npm run ios/android 
 ```
+## Demo
+
+![](demo.gif)
 
 ## Technology involved 
 - Formik 
