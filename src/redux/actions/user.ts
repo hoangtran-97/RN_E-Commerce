@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { BASE } from "../../api";
 
 import {
     ADD_USER,
@@ -110,7 +111,7 @@ export const updateUser = (
     const result = Array.from(new Set(cartResult.concat(user.cart)));
     const updatedUser = { ...user, cart: [...result] };
     return (dispatch: Dispatch) => {
-        fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+        fetch(`${BASE}/api/v1/users/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -144,7 +145,7 @@ export const updateUser = (
 
 export const fetchUsers = () => {
     return (dispatch: Dispatch) => {
-        return fetch("http://localhost:3001/api/v1/users/").then((res) =>
+        return fetch(`${BASE}/api/v1/users/`).then((res) =>
             res.json().then((users) => {
                 dispatch(receiveUsers(users));
             }),
@@ -161,7 +162,7 @@ export const authorizeUserDB = (
     return (dispatch: Dispatch) => {
         const updatedUser = { ...user, isBanned: `${banStatus}` };
 
-        return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+        return fetch(`${BASE}/api/v1/users/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

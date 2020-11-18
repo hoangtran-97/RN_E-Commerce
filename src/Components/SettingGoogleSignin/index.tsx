@@ -9,6 +9,7 @@ import axios from "axios";
 
 import { AppState } from "../../typings";
 import { addToken, updateUser } from "../../redux/actions";
+import { BASE } from "../../api";
 //TODO: ADD GOOGLE SIGNIN
 const SettingGoogleSignin = () => {
     const dispatch = useDispatch();
@@ -38,12 +39,9 @@ const SettingGoogleSignin = () => {
         }
     };
     const responseGoogle = async (response: any) => {
-        const res = await axios.post(
-            "http://localhost:3001/api/v1/auth/googleTokenId",
-            {
-                id_token: response.idToken,
-            },
-        );
+        const res = await axios.post(`${BASE}/api/v1/auth/googleTokenId`, {
+            id_token: response.idToken,
+        });
         if (res.status === 200) {
             dispatch(updateUser(res.data.user, res.data.token, cart, list));
             dispatch(addToken(res.data.token));

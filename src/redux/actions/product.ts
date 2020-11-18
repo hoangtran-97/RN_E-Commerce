@@ -15,6 +15,7 @@ import {
     IntentType,
     ProductInCart,
 } from "../../typings";
+import { BASE } from "../../api";
 
 export const addProduct = (product: ProductInCart): ProductActions => {
     return {
@@ -64,10 +65,7 @@ export const removeProductList = (product: Product): ProductActions => {
 //TODO: Fix API link after upload
 //TODO: FIX addProductListDB using token both front and back-end
 
-const URL =
-    Platform.OS === "ios"
-        ? "http://localhost:3001/api/v1/products"
-        : "http://10.0.2.2:3001/api/v1/products";
+const URL = `${BASE}/api/v1/products`;
 
 export const fetchProducts = () => {
     return (dispatch: Dispatch) => {
@@ -135,7 +133,7 @@ export const addProductDB = (
             updatedUser = { ...user, cart: [...result] };
         }
 
-        return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+        return fetch(`${BASE}/api/v1/users/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -159,7 +157,7 @@ export const addProductDB = (
 export const addProductListDB = (product: Product) => {
     console.log("in action", JSON.stringify(product));
     return (dispatch: Dispatch) => {
-        return fetch("http://localhost:3001/api/v1/products/", {
+        return fetch(`${BASE}/api/v1/products/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -222,7 +220,7 @@ export const removeProductDB = (
         const updateUser = { ...user };
         console.log("redux/action", updateUser);
 
-        return fetch(`http://localhost:3001/api/v1/users/${_id}`, {
+        return fetch(`${BASE}/api/v1/users/${_id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -242,7 +240,7 @@ export const removeProductDB = (
 
 export const removeProductListDB = (_id: string, product: Product) => {
     return (dispatch: Dispatch) => {
-        return fetch(`http://localhost:3001/api/v1/products/${_id}`, {
+        return fetch(`${BASE}/api/v1/products/${_id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
