@@ -23,5 +23,7 @@ npm run ios/android
 - React Navigation
 - Redux
 - REST API 
-
+## Todo 
+- [ ] Refactor 
+- [ ] Google Login for Android 
       
