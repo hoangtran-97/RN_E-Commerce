@@ -3,10 +3,8 @@
 ## Companion React Native app for Online E-Commerce store, available for iOS and Android 
 
 ## Web version
-```
-https://hoangtranxamk-e-commerce.netlify.app/
-```
-## Web repo 
+[https://hoangtranxamk-e-commerce.netlify.app/](https://hoangtranxamk-e-commerce.netlify.app/)
+## [Web repo](https://github.com/hoangtran-97/Web_E-Commerce) 
 ```
 https://github.com/hoangtran-97/Web_E-Commerce
 ```
