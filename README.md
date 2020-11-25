@@ -12,6 +12,9 @@ Checkout at branch `master`
 ```
 yarn install
 ```
+```
+cd ios && pod update
+```
 ``` 
 npm run ios/android 
 ```
